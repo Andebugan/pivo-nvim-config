@@ -18,8 +18,25 @@ return {
 
       local mason_registry = require("mason-registry")
 
-      -->>> here goes configuration for language debuggers
-      --<<<
+      -- csharp
+
+      local netcoredbg = mason_registry.get_package("netcoredbg")
+      dap.adapters.coreclr = {
+        type = 'executable',
+        command = netcoredbg:get_install_path() .. "/netcoredbg",
+        args = { '--interpreter=vscode' }
+      }
+
+      dap.configurations.cs = {
+        {
+          type = "coreclr",
+          name = "launch - netcoredbg",
+          request = "launch",
+          program = function()
+            return vim.fn.input('Path to dll:', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+          end,
+        },
+      }
 
       dap.listeners.after.event_initialized['dapui_config'] = function()
         dapui.open()
