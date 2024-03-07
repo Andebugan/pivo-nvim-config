@@ -14,8 +14,17 @@ return {
       lspconfig.dockerls.setup({ capabilities = capabilities })
       lspconfig.docker_compose_language_service.setup({ capabilities = capabilities })
 
-      -->>> here goes config for different language servers
-      --<<<
+      -- csharp config
+      local pid = vim.fn.getpid()
+      local mason_registry = require("mason-registry")
+      local omnisharp_pack = mason_registry.get_package("omnisharp")
+      local omnisharp_bin = omnisharp_pack:get_install_path() .. "/omnisharp"
+
+      lspconfig.omnisharp.setup({
+        capabilities = capabilities,
+        cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid)},
+      })
+
 
       vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
@@ -55,6 +64,8 @@ return {
       require('mason').setup({
         ensure_installed = {
           "stylua",
+          -- csharp
+          "netcoredbg",
         },
       })
     end
@@ -69,7 +80,9 @@ return {
           "dockerls",
           "jsonls",
           "lua_ls",
-          "yamlls"
+          "yamlls",
+          -- csharp
+          "omnisharp"
         },
         auto_install = true
       })
