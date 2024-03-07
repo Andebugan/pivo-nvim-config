@@ -13,7 +13,9 @@ return {
         "vim",
         "vimdoc",
         "yaml",
-        "markdown"
+        "markdown",
+        -- csharp
+        "c_sharp"
       },
       highlight = { enable = true },
       indent = { enable = true }
