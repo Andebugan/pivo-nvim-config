@@ -19,6 +19,7 @@ return {
       local mason_registry = require("mason-registry")
 
       -->>> here goes configuration for language debuggers
+      -- TODO python debug
       --<<<
 
       dap.listeners.after.event_initialized['dapui_config'] = function()
