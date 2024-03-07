@@ -13,7 +13,11 @@ return {
         "vim",
         "vimdoc",
         "yaml",
-        "markdown"
+        "markdown",
+        -- C/C++
+        "c",
+        "cpp",
+        "cmake",
       },
       highlight = { enable = true },
       indent = { enable = true }
