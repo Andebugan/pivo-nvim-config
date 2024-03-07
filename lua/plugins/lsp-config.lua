@@ -5,31 +5,17 @@ return {
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       local lspconfig = require("lspconfig")
+      -- config lsp servers
       lspconfig.lua_ls.setup({ capabilities = capabilities })
       lspconfig.bashls.setup({ capabilities = capabilities })
-      lspconfig.clangd.setup({ capabilities = capabilities })
+      lspconfig.yamlls.setup({ capabilities = capabilities })
+      lspconfig.jsonls.setup({ capabilities = capabilities })
 
-      local pid = vim.fn.getpid()
-      local mason_registry = require("mason-registry")
-      local omnisharp_pack = mason_registry.get_package("omnisharp")
-      local omnisharp_bin = omnisharp_pack:get_install_path() .. "/omnisharp"
-
-      lspconfig.omnisharp.setup({
-        capabilities = capabilities,
-        cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid)},
-      })
-      lspconfig.cssls.setup({ capabilities = capabilities })
       lspconfig.dockerls.setup({ capabilities = capabilities })
       lspconfig.docker_compose_language_service.setup({ capabilities = capabilities })
-      lspconfig.html.setup({ capabilities = capabilities })
-      lspconfig.jsonls.setup({ capabilities = capabilities })
-      lspconfig.quick_lint_js.setup({ capabilities = capabilities })
-      lspconfig.marksman.setup({ capabilities = capabilities })
-      lspconfig.pyre.setup({ capabilities = capabilities })
-      lspconfig.sqls.setup({ capabilities = capabilities })
-      lspconfig.yamlls.setup({ capabilities = capabilities })
 
-      lspconfig.tsserver.setup({capabilities = capabilities})
+      -->>> here goes config for different language servers
+      --<<<
 
       vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
@@ -68,13 +54,6 @@ return {
     config = function ()
       require('mason').setup({
         ensure_installed = {
-          "pylint",
-          "black",
-          "clang-format",
-          "codelldb",
-          "debugpy",
-          "js-debug-adapter",
-          "netcoredbg",
           "stylua",
         },
       })
@@ -86,19 +65,10 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = {
           "bashls",
-          "clangd",
-          "cssls",
           "docker_compose_language_service",
           "dockerls",
-          "html",
           "jsonls",
           "lua_ls",
-          "marksman",
-          "omnisharp",
-          "pylsp",
-          "quick_lint_js",
-          "sqls",
-          "tsserver",
           "yamlls"
         },
         auto_install = true
