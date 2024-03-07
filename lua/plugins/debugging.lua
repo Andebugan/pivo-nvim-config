@@ -18,10 +18,34 @@ return {
 
       local mason_registry = require("mason-registry")
 
-      -->>> here goes configuration for language debuggers
-      --<<<
+      -- C/C++
+      local codelldb = mason_registry.get_package("codelldb")
+      dap.adapters.codelldb = {
+        type = 'server',
+        port = "${port}",
+        executable = {
+          -- CHANGE THIS to your path!
+          command = codelldb:get_install_path() .. "/codelldb",
+          args = { "--port", "${port}" },
 
-      dap.listeners.after.event_initialized['dapui_config'] = function()
+          -- On windows you may have to uncomment this:
+          -- detached = false,
+        }
+      }
+
+
+      dap.configurations.cpp = {
+        {
+          name = "Launch file",
+          type = "codelldb",
+          request = "launch",
+          program = function()
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+          end,
+          cwd = '${workspaceFolder}',
+          stopOnEntry = false,
+        },
+      }      dap.listeners.after.event_initialized['dapui_config'] = function()
         dapui.open()
       end
 
