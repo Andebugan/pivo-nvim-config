@@ -14,6 +14,8 @@ return {
       lspconfig.dockerls.setup({ capabilities = capabilities })
       lspconfig.docker_compose_language_service.setup({ capabilities = capabilities })
 
+      lspconfig.marksman.setup({ capabilities = capabilities })
+
       -- csharp config
       local pid = vim.fn.getpid()
       local mason_registry = require("mason-registry")
@@ -24,7 +26,6 @@ return {
         capabilities = capabilities,
         cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid)},
       })
-
 
       vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
@@ -81,8 +82,12 @@ return {
           "jsonls",
           "lua_ls",
           "yamlls",
+<<<<<<< HEAD
           -- csharp
           "omnisharp"
+=======
+          "marksman"
+>>>>>>> base
         },
         auto_install = true
       })
