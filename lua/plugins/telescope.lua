@@ -11,13 +11,6 @@ return {
     end
   },
   {
-    'nvim-telescope/telescope-frecency.nvim',
-    config = function()
-      require("telescope").load_extension("frecency")
-      vim.keymap.set('n', '<leader>fr', ':Telescope frecency<CR>', {})
-    end,
-  },
-  {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.5',
     dependencies = { 'nvim-lua/plenary.nvim' },
