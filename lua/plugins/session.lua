@@ -14,7 +14,10 @@ return {
     config = function()
       require('session-lens').setup({})
 
-      vim.keymap.set('n', '<leader>ss', ':SearchSession<CR>', {})
+      vim.keymap.set('n', '<leader>sl', ':SearchSession<CR>', {})
+      vim.keymap.set('n', '<leader>sd', ':SessionDelete<CR>', {})
+      vim.keymap.set('n', '<leader>ss', ':SessionSave<CR>', {})
+
     end
   }
 }
