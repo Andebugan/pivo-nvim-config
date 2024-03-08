@@ -14,6 +14,8 @@ return {
       lspconfig.dockerls.setup({ capabilities = capabilities })
       lspconfig.docker_compose_language_service.setup({ capabilities = capabilities })
 
+      lspconfig.marksman.setup({ capabilities = capabilities })
+
       -- Python
       lspconfig.pyre.setup({ capabilities = capabilities})
 
@@ -73,6 +75,7 @@ return {
           "jsonls",
           "lua_ls",
           "yamlls",
+          "marksman",
           -- Python
           "pylsp"
         },

@@ -40,7 +40,6 @@ return {
       dashboard.button("e", "  new file", ":ene <BAR> startinsert <CR>"),
       dashboard.button("SPC f f", "󰈞  find file"),
       dashboard.button("SPC f h", "󰊄  recent files"),
-      dashboard.button("SPC f r", "  frecent files"),
       dashboard.button("SPC f g", "󰈬  find word"),
       dashboard.button("SPC f p", "  find project"),
       dashboard.button("SPC s l", "󰛃  session lens"),
