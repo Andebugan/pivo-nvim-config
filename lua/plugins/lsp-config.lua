@@ -82,12 +82,9 @@ return {
           "jsonls",
           "lua_ls",
           "yamlls",
-<<<<<<< HEAD
+          "marksman",
           -- csharp
           "omnisharp"
-=======
-          "marksman"
->>>>>>> base
         },
         auto_install = true
       })
