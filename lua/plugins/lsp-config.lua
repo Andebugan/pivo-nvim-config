@@ -14,6 +14,8 @@ return {
       lspconfig.dockerls.setup({ capabilities = capabilities })
       lspconfig.docker_compose_language_service.setup({ capabilities = capabilities })
 
+      lspconfig.marksman.setup({ capabilities = capabilities })
+
       -->>> here goes config for different language servers
       --<<<
 
@@ -69,7 +71,8 @@ return {
           "dockerls",
           "jsonls",
           "lua_ls",
-          "yamlls"
+          "yamlls",
+          "marksman"
         },
         auto_install = true
       })
