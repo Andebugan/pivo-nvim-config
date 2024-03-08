@@ -14,6 +14,8 @@ return {
       lspconfig.dockerls.setup({ capabilities = capabilities })
       lspconfig.docker_compose_language_service.setup({ capabilities = capabilities })
 
+      lspconfig.marksman.setup({ capabilities = capabilities })
+
       -- html/js/css
       lspconfig.cssls.setup({ capabilities = capabilities })
       lspconfig.html.setup({ capabilities = capabilities })
@@ -75,10 +77,11 @@ return {
           "jsonls",
           "lua_ls",
           "yamlls",
+          "marksman",
           -- js
           "cssls",
           "quick_lint_js",
-          "tsserver"
+          "tsserver",
         },
         auto_install = true
       })
