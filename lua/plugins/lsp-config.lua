@@ -14,6 +14,7 @@ return {
       lspconfig.dockerls.setup({ capabilities = capabilities })
       lspconfig.docker_compose_language_service.setup({ capabilities = capabilities })
 
+      lspconfig.marksman.setup({ capabilities = capabilities })
       -- C/C++
       lspconfig.clangd.setup({ capabilities = capabilities })
       lspconfig.cmake.setup({ capabilities = capabilities })
@@ -74,9 +75,13 @@ return {
           "jsonls",
           "lua_ls",
           "yamlls",
+<<<<<<< HEAD
           -- C/C++
           "clangd",
           "cmake"
+=======
+          "marksman"
+>>>>>>> base
         },
         auto_install = true
       })
