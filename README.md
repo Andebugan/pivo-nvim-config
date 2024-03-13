@@ -4,3 +4,4 @@ For:
 - C#
 - Python
 - C/C++
+- Javascript
