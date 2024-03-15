@@ -1,5 +1,5 @@
 FROM debian:bookworm
-# docker build -t base-devenv --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --squash .
+# docker build -t csharp-devenv --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --squash .
 # this image is for local development containers only, do not push it to public registies
 
 ARG ssh_prv_key
