@@ -16,3 +16,21 @@ Support:
 - [ ] Lua
 - [ ] PostgreSQL
 - [ ] MySQL
+
+TODO:
+- [ ] development
+    - [ ] code writing
+        - [ ] sytax highlight/analysis
+        - [ ] code completions
+        - [ ] code suggestions
+    - [ ] git integration
+        - [ ] changed highlight
+        - [ ] merge diff support
+    - [ ] project management
+        - [ ] bookmark support
+    - [ ] docker integration
+- [ ] navigation
+    - [ ] neotree
+    - [ ] cached file/dir search
+- [ ] utility
+    - [ ] pivo screen
