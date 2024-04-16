@@ -41,8 +41,6 @@ return {
       dashboard.button("SPC f f", "󰈞  find file"),
       dashboard.button("SPC f h", "󰊄  recent files"),
       dashboard.button("SPC f g", "󰈬  find word"),
-      dashboard.button("SPC f p", "  find project"),
-      dashboard.button("SPC s l", "󰛃  session lens"),
       dashboard.button("q", "󰅚  quit", ":qa<CR>"),
     }
 
