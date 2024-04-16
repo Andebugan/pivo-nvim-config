@@ -35,6 +35,8 @@ return {
       lspconfig.html.setup({ capabilities = capabilities })
       lspconfig.quick_lint_js.setup({ capabilities = capabilities })
       lspconfig.tsserver.setup({capabilities = capabilities})
+      -- Python
+      lspconfig.pyre.setup({ capabilities = capabilities})
 
       vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
@@ -81,6 +83,9 @@ return {
           "netcoredbg",
           -- js,
           "js-debug-adapter",
+          -- Python
+          "pylint",
+          "black"
         },
       })
     end
@@ -108,6 +113,9 @@ return {
           "cssls",
           "quick_lint_js",
           "tsserver",
+          "marksman",
+          -- Python
+          "pylsp"
         },
         auto_install = true
       })

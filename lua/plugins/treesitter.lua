@@ -24,6 +24,8 @@ return {
         "css",
         "html",
         "javascript"
+        -- Python
+        "python"
       },
       highlight = { enable = true },
       indent = { enable = true }

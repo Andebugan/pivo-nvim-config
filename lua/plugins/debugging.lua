@@ -29,6 +29,9 @@ return {
           args = { "--port", "${port}" },
 	
       -- csharp
+      -->>> here goes configuration for language debuggers
+      -- TODO python debug
+      --<<<
 
       local netcoredbg = mason_registry.get_package("netcoredbg")
       dap.adapters.coreclr = {
