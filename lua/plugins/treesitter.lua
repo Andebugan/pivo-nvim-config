@@ -18,6 +18,8 @@ return {
         "c",
         "cpp",
         "cmake",
+        -- csharp
+        "c_sharp"
       },
       highlight = { enable = true },
       indent = { enable = true }

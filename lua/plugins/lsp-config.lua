@@ -15,9 +15,21 @@ return {
       lspconfig.docker_compose_language_service.setup({ capabilities = capabilities })
 
       lspconfig.marksman.setup({ capabilities = capabilities })
+
       -- C/C++
       lspconfig.clangd.setup({ capabilities = capabilities })
       lspconfig.cmake.setup({ capabilities = capabilities })
+
+      -- csharp config
+      local pid = vim.fn.getpid()
+      local mason_registry = require("mason-registry")
+      local omnisharp_pack = mason_registry.get_package("omnisharp")
+      local omnisharp_bin = omnisharp_pack:get_install_path() .. "/omnisharp"
+
+      lspconfig.omnisharp.setup({
+        capabilities = capabilities,
+        cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid)},
+      })
 
       vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
@@ -60,6 +72,8 @@ return {
           --C/C++
           "codelldb",
           "clang-format",
+          -- csharp
+          "netcoredbg",
         },
       })
     end
@@ -75,13 +89,13 @@ return {
           "jsonls",
           "lua_ls",
           "yamlls",
-<<<<<<< HEAD
           -- C/C++
           "clangd",
           "cmake"
-=======
           "marksman"
->>>>>>> base
+          "marksman",
+          -- csharp
+          "omnisharp"
         },
         auto_install = true
       })
