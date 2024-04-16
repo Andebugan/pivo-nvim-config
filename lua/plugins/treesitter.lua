@@ -20,6 +20,10 @@ return {
         "cmake",
         -- csharp
         "c_sharp"
+        -- js
+        "css",
+        "html",
+        "javascript"
       },
       highlight = { enable = true },
       indent = { enable = true }

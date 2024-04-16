@@ -30,6 +30,11 @@ return {
         capabilities = capabilities,
         cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid)},
       })
+      -- html/js/css
+      lspconfig.cssls.setup({ capabilities = capabilities })
+      lspconfig.html.setup({ capabilities = capabilities })
+      lspconfig.quick_lint_js.setup({ capabilities = capabilities })
+      lspconfig.tsserver.setup({capabilities = capabilities})
 
       vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
@@ -74,6 +79,8 @@ return {
           "clang-format",
           -- csharp
           "netcoredbg",
+          -- js,
+          "js-debug-adapter",
         },
       })
     end
@@ -96,6 +103,11 @@ return {
           "marksman",
           -- csharp
           "omnisharp"
+          "marksman",
+          -- js
+          "cssls",
+          "quick_lint_js",
+          "tsserver",
         },
         auto_install = true
       })
