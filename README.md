@@ -9,13 +9,15 @@ Basic functionality will include:
 Support:
 - [ ] C#
 - [ ] C/C++
-- [ ] Python
-- [ ] http/css/js
 - [ ] Go
-- [ ] Rust
+- [ ] http/css/js
+- [ ] LaTeX
 - [ ] Lua
-- [ ] PostgreSQL
+- [ ] Markdown
 - [ ] MySQL
+- [ ] PostgreSQL
+- [ ] Python
+- [ ] Rust
 
 TODO:
 - [ ] development
@@ -29,8 +31,13 @@ TODO:
     - [ ] project management
         - [ ] bookmark support
     - [ ] docker integration
+    - [ ] Markdown/LaTeX
+        - [ ] preview (live, if possible)
 - [ ] navigation
     - [ ] neotree
     - [ ] cached file/dir search
 - [ ] utility
     - [ ] pivo screen
+    - [ ] bash config
+        - [ ] git info
+        - [ ] python env info
