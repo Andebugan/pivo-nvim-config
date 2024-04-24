@@ -1,12 +1,12 @@
 FROM debian:bookworm
 # docker build -t pivodev-image --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --squash .
 # <!> this image is for local development containers only, do not push it to public registies <!>
-
+# <!> this image is for local development containers only, do not push it to public registies <!>
 # ssh arguments
 ARG ssh_prv_key
 ARG ssh_pub_key
 
-# update packages 
+# update packages
 RUN apt-get update\
   && apt-get upgrade -y\
   && apt-get install git wget openssh-server curl zip -y
@@ -38,7 +38,7 @@ RUN mkdir ~/.config/\
 # Python
 # TODO
 
-# C# 
+# C#
 #RUN wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
 #  && dpkg -i packages-microsoft-prod.deb\
 #  && rm packages-microsoft-prod.deb\
@@ -52,4 +52,7 @@ RUN mkdir ~/.config/\
 # TODO
 
 # MySQL
+# TODO
+
+# LaTeX
 # TODO

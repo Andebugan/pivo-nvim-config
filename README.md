@@ -6,7 +6,7 @@ Basic functionality will include:
 - [ ] Neovim base configuration and templates for creating IDE specific to development requirements
 - [ ] Set of dockerfiles for specific projecs
 
-Support:
+Languanges/platforms in mind:
 - [ ] C#
 - [ ] C/C++
 - [ ] Go
