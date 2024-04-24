@@ -42,7 +42,7 @@ RUN mkdir ~/.config/\
 #RUN wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
 #  && dpkg -i packages-microsoft-prod.deb\
 #  && rm packages-microsoft-prod.deb\
-#  && apt-get update && apt-get install dotnet-sdk-8.0 dotnet-runtime-8.0 -y\
+#  && apt-get install dotnet-sdk-8.0 dotnet-runtime-8.0 -y\
 #  && apt autoremove -y
 
 # js/css/html
@@ -55,4 +55,5 @@ RUN mkdir ~/.config/\
 # TODO
 
 # LaTeX
-# TODO
+#RUN apt-get install texlive texlive-xetex -y\
+# && apt autoremove -y
