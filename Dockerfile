@@ -54,5 +54,5 @@ RUN mkdir ~/.config/\
 # TODO
 
 # LaTeX
-#RUN apt-get install texlive texlive-xetex -y\
+#RUN apt-get install texlive texlive-xetex texlive-lang-cyrillic ttf-mscorefonts-installer -y\
 # && apt autoremove -y

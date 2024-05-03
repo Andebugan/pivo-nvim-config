@@ -10,7 +10,8 @@ vim.o.smartindent = true        -- automatically indent new lines
 vim.o.wrap = true               -- disable line wrapping
 vim.o.linebreak = true          -- enable breaking at words for wrap option
 
-vim.o.termguicolors = false     -- disnable 24-bit RGB colors
+vim.o.termguicolors = true      -- disnable 24-bit RGB colors
+vim.cmd('colorscheme slate')    -- nvim color scheme
 
 vim.o.ignorecase = true         -- set ignore case for search
 vim.o.smartcase = true          -- set smart case for search
@@ -28,6 +29,16 @@ vim.keymap.set('n', '<Leader>tp', '<cmd>tabprev<cr>')   -- previous tab
 vim.keymap.set('n', '<Leader>tf', '<cmd>tabfirst<cr>')  -- first tab
 vim.keymap.set('n', '<Leader>tl', '<cmd>tablast<cr>')   -- last tab
 
+-- file keymaps
+vim.keymap.set('n', '<Leader>sf', '<cmd>w<cr>')         -- save current file
+vim.keymap.set('n', '<Leader>sa', '<cmd>wa<cr>')        -- save all open files
+
+-- cyrillic qwerty langmap
+vim.o.langmap = "йq,цw,уe,кr,еt,нy,гu,шi,щo,зp,х[,ъ],фa,ыs,вd,аf,пg,рh,оj,лk,дl,ж\\;,э',яz,чx,сc,мv,иb,тn,ьm,б\\,,ю.,ё`,ЙQ,ЦW,УE,КR,ЕT,НY,ГU,ШI,ЩO,ЗP,Х{,Ъ},ФA,ЫS,ВD,АF,ПG,РH,ОJ,ЛK,ДL,Ж\\:,Э\",ЯZ,ЧX,СC,МV,ИB,ТN,ЬM,Б<,Ю>,Ё~"
+
 -- syntax
 vim.cmd('syntax enable')	            -- enable syntax highlight
 vim.cmd('filetype plugin indent on')    -- enable filetype detection, completions, plugin files and indent files
+
+-- disable numbers in terminal
+vim.cmd('autocmd TermOpen * setlocal nonumber norelativenumber')
