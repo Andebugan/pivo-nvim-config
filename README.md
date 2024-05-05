@@ -10,12 +10,11 @@ Languanges/platforms in mind:
 - [ ] C#
 - [ ] C/C++
 - [ ] Go
-- [ ] http/css/js
+- [ ] Web (http/css/js)
 - [ ] LaTeX
 - [ ] Lua
 - [ ] Markdown
-- [ ] MySQL
-- [ ] PostgreSQL
+- [ ] SQL
 - [ ] Python
 - [ ] Rust
 
@@ -28,6 +27,8 @@ TODO:
     - [ ] git integration
         - [ ] changed highlight
         - [ ] merge diff support
+    - [ ] documentation
+        - [ ] docs fetcher/builder
     - [ ] project management
         - [ ] bookmark support
     - [ ] docker integration

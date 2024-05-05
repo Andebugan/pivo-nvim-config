@@ -31,6 +31,9 @@ RUN mkdir ~/.config/\
   && git clone git@github.com:Andebugan/pivodev.git\
   && mv pivodev ~/.config/nvim
 
+# add custom bash command line
+RUN echo "PROMPT_COMMAND='PS1_CMD1=$(git branch --show-current 2>/dev/null)'; PS1='\[\e[38;5;221;2m\]\u\[\e[0;90m\]@\[\e[38;5;209;2m\]\h\[\e[0;90m\]|\[\e[93m\]\w\[\e[90m\]|\[\e[38;5;155m\]${PS1_CMD1}\n\[\e[90m\]>\[\e[0m\] '" >> ~/.bashrc
+
 # C/C++
 # TODO
 
