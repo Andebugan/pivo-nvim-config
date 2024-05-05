@@ -41,3 +41,17 @@ TODO:
     - [ ] bash config
         - [ ] git info
         - [ ] python env info
+
+## Global configuration
+
+Package dependencies:
+- openssh-server - for ssh credentials management (pulling your repos from github/gitlab/etc.)
+
+## Neovim 
+
+Base installation dependencies:
+- git - for pulling repo and git-based repos 
+- curl - downloading newest version of neovim (sadly apt-based package managers do not provide latest versions of neovim)
+
+Package manager - [*lazy.nvim*](https://github.com/folke/lazy.nvim), as most stable and maintained (packer.nvim unmaintained since august 2033)
+

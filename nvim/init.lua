@@ -40,5 +40,23 @@ vim.o.langmap = "йq,цw,уe,кr,еt,нy,гu,шi,щo,зp,х[,ъ],фa,ыs,вd,аf
 vim.cmd('syntax enable')	            -- enable syntax highlight
 vim.cmd('filetype plugin indent on')    -- enable filetype detection, completions, plugin files and indent files
 
--- disable numbers in terminal
-vim.cmd('autocmd TermOpen * setlocal nonumber norelativenumber')
+-- terminal
+vim.cmd('autocmd TermOpen * setlocal nonumber norelativenumber')    -- disable line numbers for terminal
+vim.o.shell = "bash"                                                -- change terminal shell to bash
+
+-- lazy.nvim setup
+-- for correct symbol rendering Nerd Font should be installed (me have chosen Hack Mono you do you)
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup("plugins")
