@@ -8,7 +8,7 @@ ARG ssh_pub_key
 # update packages
 RUN apt-get update\
   && apt-get upgrade -y\
-  && apt-get install git wget openssh-server curl tar -y
+  && apt-get install git wget openssh-server curl tar gcc make -y
 
 # install neovim
 RUN curl -L -O "https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz"\

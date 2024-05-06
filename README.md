@@ -35,13 +35,12 @@ TODO:
     - [ ] Markdown/LaTeX
         - [ ] preview (live, if possible)
 - [ ] navigation
-    - [ ] neotree
+    - [ ] file navigator
     - [ ] cached file/dir search
 - [ ] utility
     - [ ] pivo screen
-    - [ ] bash config
-        - [ ] git info
-        - [ ] python env info
+    - [x] bash config
+        - [x] git info
 
 ## Global configuration
 
@@ -54,5 +53,6 @@ Base installation dependencies:
 - git - for pulling repo and git-based repos 
 - curl - downloading newest version of neovim (sadly apt-based package managers do not provide latest versions of neovim)
 
-Package manager - [*lazy.nvim*](https://github.com/folke/lazy.nvim), as most stable and maintained (packer.nvim unmaintained since august 2033)
+Package manager - [*lazy.nvim*](https://github.com/folke/lazy.nvim), as most stable and maintained (packer.nvim unmaintained since august 2023)
 
+gcc and make for telescope plugin (fzf native)
