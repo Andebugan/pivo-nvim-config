@@ -11,8 +11,8 @@ return {
 
         local trim_spaces = true
         vim.keymap.set("v", "<space>s", function()
+            require("toggleterm").send_lines_to_terminal("visual_selection", trim_spaces, { args = vim.v.count })
         end)
-        require("toggleterm").send_lines_to_terminal("visual_selection", trim_spaces, { args = vim.v.count })
         -- For use as an operator map:
         -- Send motion to terminal
         vim.keymap.set("n", [[<leader><c-\>]], function()

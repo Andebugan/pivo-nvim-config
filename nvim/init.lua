@@ -11,10 +11,11 @@ vim.o.wrap = true               -- disable line wrapping
 vim.o.linebreak = true          -- enable breaking at words for wrap option
 
 vim.o.termguicolors = true      -- disnable 24-bit RGB colors
-vim.cmd('colorscheme slate')    -- nvim color scheme
 
 vim.o.ignorecase = true         -- set ignore case for search
 vim.o.smartcase = true          -- set smart case for search
+
+vim.opt.fillchars = { eob = " "}-- disable tilde symbols after EOF
 
 -- key mappings
 vim.g.mapleader = ' '           -- set space as the leader key
@@ -58,3 +59,4 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
+

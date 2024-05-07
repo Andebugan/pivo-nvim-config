@@ -31,7 +31,7 @@ return {
             vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
             vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
             vim.keymap.set('n', '<leader>fh', builtin.oldfiles, {})
-            vim.keymap.set('n', '<leader>fp', ':Telescope projects<CR>', {})
+            vim.keymap.set('n', '<leader>fp', ':Telescope project<CR>', {})
             require('telescope').setup {
                 file_ignore_patterns = {
                     "node_modules/.*",
