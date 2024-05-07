@@ -20,7 +20,7 @@ vim.o.smartcase = true          -- set smart case for search
 vim.g.mapleader = ' '           -- set space as the leader key
 
 -- tab keymaps
-vim.keymap.set('n', '<Leader>tc', '<cmd>tabnew<cr>')    -- open new tab
+vim.keymap.set('n', '<Leader>tw', '<cmd>tabnew<cr>')    -- open new tab
 vim.keymap.set('n', '<Leader>tx', '<cmd>tabclose<cr>')  -- close tab
 vim.keymap.set('n', '<Leader>tn', '<cmd>tabnext<cr>')   -- next tab
 vim.keymap.set('n', '<Leader>tp', '<cmd>tabprev<cr>')   -- previous tab
