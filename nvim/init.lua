@@ -16,8 +16,6 @@ vim.cmd('colorscheme slate')    -- nvim color scheme
 vim.o.ignorecase = true         -- set ignore case for search
 vim.o.smartcase = true          -- set smart case for search
 
-vim.o.foldmethod = "indent"       -- set fold of folding to indent
-
 -- key mappings
 vim.g.mapleader = ' '           -- set space as the leader key
 
