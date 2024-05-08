@@ -21,25 +21,21 @@ Languanges/platforms in mind:
 TODO:
 - [ ] development
     - [ ] code writing
-        - [ ] sytax highlight/analysis
-        - [ ] code completions
+        - [x] sytax highlight/analysis (nvim-treesitter)
+        - [x] code completions (luasnip, nvim-cmp)
         - [ ] code suggestions
-    - [ ] git integration
-        - [ ] changed highlight
-        - [ ] merge diff support
+    - [x] git integration (gitsigns, vim-fugitive)
     - [ ] documentation
-        - [ ] docs fetcher/builder
-    - [ ] project management
-        - [ ] bookmark support
+    - [x] project management (telescope projects)
     - [ ] docker integration
     - [ ] Markdown/LaTeX
         - [ ] preview (live, if possible)
-- [ ] navigation
-    - [ ] file navigator
-    - [ ] cached file/dir search
-- [ ] utility
-    - [ ] pivo screen
-    - [x] bash config
+- [x] navigation
+    - [x] file navigator (oil)
+    - [x] file/dir search (telescope)
+- [x] utility
+    - [x] pivo screen
+    - [x] custom bash line config
         - [x] git info
 
 ## Global configuration
@@ -55,4 +51,42 @@ Base installation dependencies:
 
 Package manager - [*lazy.nvim*](https://github.com/folke/lazy.nvim), as most stable and maintained (packer.nvim unmaintained since august 2023)
 
-gcc and make for telescope plugin (fzf native)
+### Packages
+
+Base neovim installation:
++ filesystem navigation:
+  + telescope.nvim - pickers, sorters and previewers, [github](https://github.com/nvim-telescope/telescope.nvim)
+    + plenary.nvim - dependency of telescope, [github](https://github.com/nvim-lua/plenary.nvim)
+    + telescope-project.nvim - project management with telescope, [github](https://github.com/nvim-telescope/telescope-project.nvim)
+    + telescope-ui-select.nvim - sets vim.ui.select to telescope, [github](https://github.com/nvim-telescope/telescope-ui-select.nvim)
+  + oil.nvim - allows to manage files via neovim buffer, [github](https://github.com/stevearc/oil.nvim) (neotree exists as viable alternative but personaly I find oil more "natura" to use)
++ syntax:
+  + nvim-treesitter - general syntax parser, [github](https://github.com/nvim-treesitter/nvim-treesitter)
++ completion and snippets:
+  + LuaSnip.nvim - snippet engine for neovim, [github](https://github.com/L3MON4D3/LuaSnip)
+  + nvim-cmp - neovim completion plugin, written in lua, [github](https://github.com/hrsh7th/nvim-cmp)
++ git:
+  + vim-fugitive - git integration, [github](https://github.com/tpope/vim-fugitive)
+  + gitsigns.nvim - git decorations, [github](https://github.com/lewis6991/gitsigns.nvim)
++ misc code tools:
+  + vim-commentary - comment actions, [github](https://github.com/tpope/vim-commentary)
+  + vim-surround - parentness manager, [github](https://github.com/tpope/vim-surround)
++ appearance:
+  + alpha-nvim - neovim greeter, [github](https://github.com/goolord/alpha-nvim)
+  + lualine.nvim - custom neovim status line, [github](https://github.com/nvim-lualine/lualine.nvim)
+  + kaganawa.nvim - personal colorscheme choice, [github](https://github.com/rebelot/kanagawa.nvim)
+
+lsp, debugging and formatting, based on lspconfig and mason because (coc is good too tho but native is my personal choice):
+- nvim-lspconfig - collection of configuration for Nvim's LSP client, [github](https://github.com/neovim/nvim-lspconfig)
+- mason-lspconfig.nvim - bridge lspconfig and mason, [github](https://github.com/williamboman/mason-lspconfig.nvim)
+- mason.nvim - external tool manager (LSP servers, etc.), [github](https://github.com/williamboman/mason.nvim?tab=readme-ov-file)
+- nvim-dap - debug adapter protocol (debugging support), [github](https://github.com/mfussenegger/nvim-dap)
+- nvim-dap - debugger ui, [github](https://github.com/rcarriga/nvim-dap-ui)
+- nvim-lint - linter, [github](https://github.com/mfussenegger/nvim-lint)
+- formatter.nvim - formatting, [github](https://github.com/mhartington/formatter.nvim)
+
+Misc plugins:
+- vimtex - latex snippets/tools, [github](https://github.com/lervag/vimtex)
+- markdown:
+  - markdown-preview.nvim - for markdown preview on main installation (needs browser), [github](https://github.com/iamcco/markdown-preview.nvim)
+  - glow.nvim - for previewing markdown in terminal, [github](https://github.com/ellisonleao/glow.nvim)
