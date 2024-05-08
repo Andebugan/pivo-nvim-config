@@ -32,6 +32,18 @@ vim.keymap.set('n', '<Leader>tl', '<cmd>tablast<cr>')   -- last tab
 vim.keymap.set('n', '<Leader>sf', '<cmd>w<cr>')         -- save current file
 vim.keymap.set('n', '<Leader>sa', '<cmd>wa<cr>')        -- save all open files
 
+-- buffer keymaps
+vim.keymap.set('n', '<Leader>bn', '<cmd>bnext<cr>')        -- next buffer 
+vim.keymap.set('n', '<Leader>bp', '<cmd>bprevious<cr>')    -- previous buffer
+vim.keymap.set('n', '<Leader>bf', '<cmd>bfirst<cr>')       -- first buffer
+vim.keymap.set('n', '<Leader>bl', '<cmd>blast<cr>')        -- last buffer
+vim.keymap.set('n', '<Leader>bs', '<cmd>buffers<cr>')      -- show buffers
+vim.keymap.set('n', '<Leader>br', '<cmd>brewind<cr>')      -- go to first buffer in list 
+vim.keymap.set('n', '<Leader>bm', '<cmd>bmodified<cr>')    -- go to next modified buffer 
+vim.keymap.set('n', '<Leader>bu', '<cmd>bunload<cr>')      -- unload buffer
+vim.keymap.set('n', '<Leader>bd', '<cmd>bdelete<cr>')      -- delete buffer
+vim.keymap.set('n', '<Leader>bw', '<cmd>bwipeout<cr>')     -- wipe buffer
+
 -- cyrillic qwerty langmap
 vim.o.langmap = "йq,цw,уe,кr,еt,нy,гu,шi,щo,зp,х[,ъ],фa,ыs,вd,аf,пg,рh,оj,лk,дl,ж\\;,э',яz,чx,сc,мv,иb,тn,ьm,б\\,,ю.,ё`,ЙQ,ЦW,УE,КR,ЕT,НY,ГU,ШI,ЩO,ЗP,Х{,Ъ},ФA,ЫS,ВD,АF,ПG,РH,ОJ,ЛK,ДL,Ж\\:,Э\",ЯZ,ЧX,СC,МV,ИB,ТN,ЬM,Б<,Ю>,Ё~"
 
