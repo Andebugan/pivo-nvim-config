@@ -5,6 +5,7 @@ return {
             'saadparwaiz1/cmp_luasnip',
             'rafamadriz/friendly-snippets',
         },
+        lazy = true,
         config = function()
             vim.keymap.set('i', '<C-K>', function() ls.expand() end, {silent = true})
             vim.keymap.set({'i', 's'}, '<C-L>', function() ls.jump(1) end, {silent = true})
@@ -20,6 +21,7 @@ return {
     },
     {
         'hrsh7th/nvim-cmp',
+        lazy = true,
         config = function()
             local cmp = require('cmp')
             require('luasnip.loaders.from_vscode').lazy_load()
