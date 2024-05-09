@@ -77,16 +77,8 @@ Base neovim installation:
   + kaganawa.nvim - personal colorscheme choice, [github](https://github.com/rebelot/kanagawa.nvim)
 
 lsp, debugging and formatting, based on lspconfig and mason because (coc is good too tho but native is my personal choice):
-- nvim-lspconfig - collection of configuration for Nvim's LSP client, [github](https://github.com/neovim/nvim-lspconfig)
-- mason-lspconfig.nvim - bridge lspconfig and mason, [github](https://github.com/williamboman/mason-lspconfig.nvim)
-- mason.nvim - external tool manager (LSP servers, etc.), [github](https://github.com/williamboman/mason.nvim?tab=readme-ov-file)
-- nvim-dap - debug adapter protocol (debugging support), [github](https://github.com/mfussenegger/nvim-dap)
-- nvim-dap - debugger ui, [github](https://github.com/rcarriga/nvim-dap-ui)
-- nvim-lint - linter, [github](https://github.com/mfussenegger/nvim-lint)
-- formatter.nvim - formatting, [github](https://github.com/mhartington/formatter.nvim)
-
-Misc plugins:
-- vimtex - latex snippets/tools, [github](https://github.com/lervag/vimtex)
-- markdown:
-  - markdown-preview.nvim - for markdown preview on main installation (needs browser), [github](https://github.com/iamcco/markdown-preview.nvim)
-  - glow.nvim - for previewing markdown in terminal, [github](https://github.com/ellisonleao/glow.nvim)
++ nvim-lspconfig - collection of configuration for Nvim's LSP client, [github](https://github.com/neovim/nvim-lspconfig)
++ mason-lspconfig.nvim - bridge lspconfig and mason, [github](https://github.com/williamboman/mason-lspconfig.nvim)
++ mason.nvim - external tool manager (LSP servers, etc.), [github](https://github.com/williamboman/mason.nvim?tab=readme-ov-file)
++ nvim-dap - debug adapter protocol (debugging support), [github](https://github.com/mfussenegger/nvim-dap)
++ nvim-dap - debugger ui, [github](https://github.com/rcarriga/nvim-dap-ui)
