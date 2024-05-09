@@ -8,6 +8,22 @@ return {
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
             local lspconfig = require("lspconfig")
 
+            local config = require("plugins.lang.config.config")
+
+            -- default
+
+            lspconfig.lua_ls.setup({ capabilities = capabilities })
+            lspconfig.bashls.setup({ capabilities = capabilities })
+            lspconfig.yamlls.setup({ capabilities = capabilities })
+            lspconfig.jsonls.setup({ capabilities = capabilities })
+
+            lspconfig.dockerls.setup({ capabilities = capabilities })
+            lspconfig.docker_compose_language_service.setup({ capabilities = capabilities })
+
+            lspconfig.marksman.setup({ capabilities = capabilities })
+
+            -- configurable
+
             vim.keymap.set('n', '<leader>df', vim.diagnostic.open_float)
             vim.keymap.set('n', '<leader>gp', vim.diagnostic.goto_prev)
             vim.keymap.set('n', '<leader>gn', vim.diagnostic.goto_next)
