@@ -1,10 +1,13 @@
 # BASE
 FROM debian:bookworm
-# docker build -t pivodev-base --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --squash .
+# docker build -t pivodev-base --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --build-arg git_user="$(git config user.name)" --build-arg git_mail="$(git config user.email)" --squash .
 # <!> THIS IMAGE IS FOR LOCAL DEVELOPMENT CONTAINERS ONLY, DO NOT PUSH IT TO PUBLIC REGISTIES <!>
 # ssh arguments
 ARG ssh_prv_key
 ARG ssh_pub_key
+
+ARG git_user
+ARG git_mail
 
 # update packages
 RUN apt-get update\
@@ -41,6 +44,11 @@ RUN echo "export SHELL='/bin/bash'" >> ~/.bashrc\
     && echo "alias l='ls \$LS_OPTIONS -lA'" >> ~/.bashrc\
     && echo 'eval "$(dircolors)"' >> ~/.bashrc\
     && echo "PROMPT_COMMAND='PS1_CMD1=\$(git branch --show-current 2>/dev/null)'; PS1='\\[\\e[38;5;221;2m\\]\\u\\[\\e[0;90m\\]@\\[\\e[38;5;209;2m\\]\\h\\[\\e[0;90m\\]|\\[\\e[93m\\]\\w\\[\\e[90m\\]|\\[\\e[38;5; 155m\\]\${PS1_CMD1}\\n\\[\\e[90m\\]>\\[\\e[0m\\] '" >> ~/.bashrc
+
+RUN apt-get install -y locales locales-all
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
 
 # FLAVOURS
 # could be added as additional installs to new pivodev image, or as new image, based on pivodev-base
