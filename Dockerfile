@@ -1,6 +1,7 @@
+# BASE
 FROM debian:bookworm
-# docker build -t pivodev-image --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --squash .
-# <!> this image is for local development containers only, do not push it to public registies <!>
+# docker build -t pivodev-base --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --squash .
+# <!> THIS IMAGE IS FOR LOCAL DEVELOPMENT CONTAINERS ONLY, DO NOT PUSH IT TO PUBLIC REGISTIES <!>
 # ssh arguments
 ARG ssh_prv_key
 ARG ssh_pub_key
@@ -8,7 +9,7 @@ ARG ssh_pub_key
 # update packages
 RUN apt-get update\
   && apt-get upgrade -y\
-  && apt-get install git wget openssh-server curl tar riggrep npm -y
+  && apt-get install git wget openssh-server curl tar ripgrep npm -y
 
 # install neovim
 RUN curl -L -O "https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz"\
@@ -29,10 +30,15 @@ RUN mkdir -p /root/.ssh\
 # setup neovim configuration
 RUN mkdir ~/.config/\
   && git clone git@github.com:Andebugan/pivodev.git\
-  && mv pivodev ~/.config/nvim
+  && cp -r pivodev/nvim ~/.config/
 
 # add custom bash command line
 RUN echo "PROMPT_COMMAND='PS1_CMD1=$(git branch --show-current 2>/dev/null)'; PS1='\[\e[38;5;221;2m\]\u\[\e[0;90m\]@\[\e[38;5;209;2m\]\h\[\e[0;90m\]|\[\e[93m\]\w\[\e[90m\]|\[\e[38;5;155m\]${PS1_CMD1}\n\[\e[90m\]>\[\e[0m\] '" >> ~/.bashrc
+
+# FLAVOURS
+# could be added as additional installs to new pivodev image, or as new image, based on pivodev-base
+# for that use:
+# FROM pivodev-base:latest 
 
 # C/C++
 # TODO
