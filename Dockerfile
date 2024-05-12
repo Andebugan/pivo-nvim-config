@@ -3,11 +3,6 @@ FROM debian:bookworm
 # docker build -t pivodev-base --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --build-arg git_user="$(git config user.name)" --build-arg git_mail="$(git config user.email)" --squash .
 # <!> THIS IMAGE IS FOR LOCAL DEVELOPMENT CONTAINERS ONLY, DO NOT PUSH IT TO PUBLIC REGISTIES <!>
 # ssh arguments
-ARG ssh_prv_key
-ARG ssh_pub_key
-
-ARG git_user
-ARG git_mail
 
 # update packages
 RUN apt-get update\
@@ -22,6 +17,9 @@ RUN curl -L -O "https://github.com/neovim/neovim/releases/latest/download/nvim-l
     && apt-get autoremove -y
 
 # ssh credentials
+ARG ssh_prv_key
+ARG ssh_pub_key
+
 RUN mkdir -p /root/.ssh\
     && chmod 0700 /root/.ssh\
     && ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts\
@@ -30,6 +28,12 @@ RUN mkdir -p /root/.ssh\
     && chmod 600 /root/.ssh/id_rsa\
     && chmod 600 /root/.ssh/id_rsa.pub
 
+# git setup
+ARG git_user
+ARG git_mail
+
+RUN git config --global user.email=${git_mail} user.name=${git_user} 
+
 # setup neovim configuration
 RUN mkdir ~/.config/\
     && cd ~\
@@ -37,13 +41,13 @@ RUN mkdir ~/.config/\
     && cp -r ~/pivodev/nvim ~/.config/
 
 # add custom bash command line
-RUN echo "export SHELL='/bin/bash'" >> ~/.bashrc\
-    && echo "export LS_OPTIONS='--color=auto'" >> ~/.bashrc\
-    && echo "alias ls='ls \$LS_OPTIONS'" >> ~/.bashrc\
-    && echo "alias ll='ls \$LS_OPTIONS -l'" >> ~/.bashrc\
-    && echo "alias l='ls \$LS_OPTIONS -lA'" >> ~/.bashrc\
+RUN echo 'export SHELL="/bin/bash"' >> ~/.bashrc\
+    && echo 'export LS_OPTIONS="--color=auto"' >> ~/.bashrc\
+    && echo 'alias ls="ls $LS_OPTIONS"' >> ~/.bashrc\
+    && echo 'alias ll="ls $LS_OPTIONS -l"' >> ~/.bashrc\
+    && echo 'alias l="ls $LS_OPTIONS -lA"' >> ~/.bashrc\
     && echo 'eval "$(dircolors)"' >> ~/.bashrc\
-    && echo "PROMPT_COMMAND='PS1_CMD1=\$(git branch --show-current 2>/dev/null)'; PS1='\\[\\e[38;5;221;2m\\]\\u\\[\\e[0;90m\\]@\\[\\e[38;5;209;2m\\]\\h\\[\\e[0;90m\\]|\\[\\e[93m\\]\\w\\[\\e[90m\\]|\\[\\e[38;5; 155m\\]\${PS1_CMD1}\\n\\[\\e[90m\\]>\\[\\e[0m\\] '" >> ~/.bashrc
+    && echo 'PROMPT_COMMAND="PS1_CMD1=$(git branch --show-current 2>/dev/null)"; PS1="\[\e[38;5;221;2m\]\u\[\e[0;90m\]@\[\e[38;5;209;2m\]\h\[\e[0;90m\]|\[\e[93m\]\w\[\e[90m\]|\[\e[1;32m\]${PS1_CMD1}\n\[\e[90m\]>\[\e[0m\] "' >> ~/.bashrc
 
 RUN apt-get install -y locales locales-all
 ENV LC_ALL en_US.UTF-8
