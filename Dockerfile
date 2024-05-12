@@ -28,6 +28,12 @@ RUN mkdir -p /root/.ssh\
     && chmod 600 /root/.ssh/id_rsa\
     && chmod 600 /root/.ssh/id_rsa.pub
 
+# install locales
+RUN apt-get install -y locales locales-all
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+
 # git setup
 ARG git_user
 ARG git_mail
@@ -40,6 +46,7 @@ RUN mkdir ~/.config/\
     && git clone -b develop git@github.com:Andebugan/pivodev.git\
     && cp -r ~/pivodev/nvim ~/.config/
 
+
 # add custom bash command line
 RUN echo 'export SHELL="/bin/bash"' >> ~/.bashrc\
     && echo 'export LS_OPTIONS="--color=auto"' >> ~/.bashrc\
@@ -47,12 +54,8 @@ RUN echo 'export SHELL="/bin/bash"' >> ~/.bashrc\
     && echo 'alias ll="ls $LS_OPTIONS -l"' >> ~/.bashrc\
     && echo 'alias l="ls $LS_OPTIONS -lA"' >> ~/.bashrc\
     && echo 'eval "$(dircolors)"' >> ~/.bashrc\
-    && echo 'PROMPT_COMMAND="PS1_CMD1=$(git branch --show-current 2>/dev/null)"; PS1="\[\e[38;5;221;2m\]\u\[\e[0;90m\]@\[\e[38;5;209;2m\]\h\[\e[0;90m\]|\[\e[93m\]\w\[\e[90m\]|\[\e[1;32m\]${PS1_CMD1}\n\[\e[90m\]>\[\e[0m\] "' >> ~/.bashrc
+    && echo PROMPT_COMMAND=\'PS1_CMD1='$(git branch --show-current 2>/dev/null)'\'\; PS1=\''\[\e[38;5;221;2m\]\u\[\e[0;90m\]@\[\e[38;5;209;2m\]\h\[\e[0;90m\]|\[\e[93m\]\w\[\e[90m\]|\[\e[1;32m\]${PS1_CMD1}\n\[\e[90m\]>\[\e[0m\] '\' >> ~/.bashrc
 
-RUN apt-get install -y locales locales-all
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US.UTF-8
 
 # FLAVOURS
 # could be added as additional installs to new pivodev image, or as new image, based on pivodev-base
