@@ -1,25 +1,13 @@
-# Pivodev - configuration for isolated docker-based developer environments
+# Pivodev - configuration files for building isolated docker-based development environments
 ![pivoscreen](https://github.com/Andebugan/pivodev/assets/40489252/9a6cec74-945b-4d7e-b849-a9c1a8a73c94)
 
-When working on projects often I come into compatability and installation problems. As a result I decided to create set of docker based configuration files for automatic creating of development environments.
+When working on projects I oftern come into installation, compatability and cleaning problems. As a result I decided to create set of docker based configurations for automatic building of development environments IDE and special tools included.
 
-Basic functionality will include:
-- [ ] Neovim base configuration and templates for creating IDE specific to development requirements
-- [ ] Set of dockerfiles for specific projecs
+Basic functionality:
+- Configurable Dockerfile builder and runner
+- Flexible "swiss knife" Neovim configuration
 
-Languanges/platforms in mind:
-- [ ] C#
-- [ ] C/C++
-- [ ] Go
-- [ ] Web (http/css/js)
-- [x] LaTeX
-- [ ] Lua
-- [ ] Markdown
-- [ ] SQL
-- [~] Python
-- [ ] Rust
-
-TODO:
+Functionality:
 - [ ] development
     - [ ] code writing
         - [x] sytax highlight/analysis (nvim-treesitter)
@@ -38,20 +26,38 @@ TODO:
     - [x] custom bash line config
         - [x] git info
 
-## Global configuration
+Languanges/platforms in mind:
+- [x] Python
+- [x] LaTeX
+- [x] C#
+- [ ] C/C++
+- [ ] Go
+- [ ] Web development (http/css/js)
+- [ ] Lua
+- [ ] Markdown
+- [ ] SQL
+- [ ] Rust
 
-Package dependencies:
+## Base dependencies
 - openssh-server - for ssh credentials management (pulling your repos from github/gitlab/etc.)
 
 ## Neovim 
 
-Base installation dependencies:
-- git - for pulling repo and git-based repos 
-- curl - downloading newest version of neovim (sadly apt-based package managers do not provide latest versions of neovim)
-
-Package manager - [*lazy.nvim*](https://github.com/folke/lazy.nvim), as most stable and maintained (packer.nvim unmaintained since august 2023)
+Dependencies:
+- git - pulling repos 
+- curl - downloading neovim (sadly apt-based package managers do not provide latest versions of neovim)
 
 ### Packages
+Package structure:
+- init.lua - contains neovim settings (keybindings, autocommands, package manager initialization)
+- lua - package folder
+    - plugins.lua - lazy file    
+    - plugins - contains all installed packages configurations
+        - base - global neovim plugins
+        - config - contains language configuration file for simple controll, if value is true - tools are installed automatically
+        - lang - language configuration (lsp, mason, nvim-dap)
+
+Package manager - [*lazy.nvim*](https://github.com/folke/lazy.nvim), as most stable and maintained (packer.nvim unmaintained since august 2023)
 
 Base neovim installation:
 + filesystem navigation:
@@ -83,11 +89,17 @@ lsp, debugging and formatting, based on lspconfig and mason because (coc is good
 + nvim-dap - debug adapter protocol (debugging support), [github](https://github.com/mfussenegger/nvim-dap), [adapter configuraions](https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#python)
 + nvim-dap-ui - debugger ui, [github](https://github.com/rcarriga/nvim-dap-ui)
 
-## Languages
-To install language and it's tools uncomment required section in dockerfile.
-
+## Language dependencies
 Dependencies:
 - Python:
-  - pip - python package manager
-  - python3 - python itself
-  - debugpy - implementation of DAP for python
+    - pip - python package manager
+    - python3 - python itself
+    - debugpy - implementation of DAP for python
+- LaTeX:
+    - texlive
+    - texlive-xetex
+    - texlive-lang-cyrillic
+    - ttf-mscorefont-installer
+- C# (csharp):
+    - dotnet-sdk-8.0
+    - dotnet-runtime-8.0
