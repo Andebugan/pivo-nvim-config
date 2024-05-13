@@ -1,7 +1,7 @@
 # Pivodev - configuration files for building isolated docker-based development environments
 ![pivoscreen](https://github.com/Andebugan/pivodev/assets/40489252/9a6cec74-945b-4d7e-b849-a9c1a8a73c94)
 
-When working on projects I oftern come into installation, compatability and cleaning problems. As a result I decided to create set of docker based configurations for automatic building of development environments IDE and special tools included.
+While working on many different projects I often come into installation, compatability and cleaning problems so I decided to create set of docker based configurations for automatic building of development environments IDE and special tools included.
 
 Basic functionality:
 - Configurable Dockerfile builder and runner
@@ -38,16 +38,32 @@ Languanges/platforms in mind:
 - [ ] SQL
 - [ ] Rust
 
-## Base dependencies
+## Usage
+- `nvim` branch contains neovim configuration
+- `docker` branch contains files for building developer environments
+
+To create new image/containes use build.sh script:
+```
+Usage: build.sh [-f {base image}] [-p] [-l {language}] [-b] [-i {image name}] [-r] [-c {containe
+r name}] [-a "{arguments}"]
+-f {base image} - specify base distro (debian/alpine)
+-p - use pivodev-base image
+-l {language} - add language support to image
+-b - builds new image if used
+-i {image name} - specifies name of new image
+-r - use docker run after build
+-c {container name} - specify container name
+-a "{arguments}" - specify run arguments
+```
+
+## Dependencies
 - openssh-server - for ssh credentials management (pulling your repos from github/gitlab/etc.)
-
-## Neovim 
-
-Dependencies:
 - git - pulling repos 
 - curl - downloading neovim (sadly apt-based package managers do not provide latest versions of neovim)
 
-### Packages
+## Neovim
+
+### Config file structure
 Package structure:
 - init.lua - contains neovim settings (keybindings, autocommands, package manager initialization)
 - lua - package folder
@@ -57,6 +73,7 @@ Package structure:
         - config - contains language configuration file for simple controll, if value is true - tools are installed automatically
         - lang - language configuration (lsp, mason, nvim-dap)
 
+### Packages
 Package manager - [*lazy.nvim*](https://github.com/folke/lazy.nvim), as most stable and maintained (packer.nvim unmaintained since august 2023)
 
 Base neovim installation:
