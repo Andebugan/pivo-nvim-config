@@ -36,15 +36,15 @@ while getopts 'f:pl:bi:rc:ha:' opt; do
             run_args="$OPTARG"
             ;;
         ?|h)
-            echo "Usage: $(basename $0) [-f {base image}] [-p] [-l {language}] [-b] [-i {image name}] [-r] [-c {container name}] [-a {arguments}]"
-            echo "-f {base image} - specify base image (debian/alpine/pivodev-base)"
-            echo "-p - pure instead of existing pivodev-base image"
+            echo "Usage: $(basename $0) [-f {base image}] [-p] [-l {language}] [-b] [-i {image name}] [-r] [-c {container name}] [-a \"{arguments}]"
+            echo "-f {base image} - specify base distro (debian/alpine)"
+            echo "-p - use pivodev-base image"
             echo "-l {language} - add language support to image"
             echo "-b - builds new image if used"
             echo "-i {image name} - specifies name of new image"
             echo "-r - use docker run after build"
             echo "-c {container name} - specify container name"
-            echo "-a {arguments} - specify run arguments"
+            echo "-a \"{arguments}\" - specify run arguments"
             exit 1
             ;;
     esac
