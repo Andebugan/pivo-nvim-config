@@ -11,11 +11,11 @@ Languanges/platforms in mind:
 - [ ] C/C++
 - [ ] Go
 - [ ] Web (http/css/js)
-- [ ] LaTeX
+- [x] LaTeX
 - [ ] Lua
 - [ ] Markdown
 - [ ] SQL
-- [ ] Python
+- [~] Python
 - [ ] Rust
 
 TODO:
@@ -23,13 +23,12 @@ TODO:
     - [ ] code writing
         - [x] sytax highlight/analysis (nvim-treesitter)
         - [x] code completions (luasnip, nvim-cmp)
-        - [ ] code suggestions
+        - [x] code suggestions (mason, lspconfig)
     - [x] git integration (gitsigns, vim-fugitive)
     - [ ] documentation
     - [x] project management (telescope projects)
-    - [ ] docker integration
-    - [ ] Markdown/LaTeX
-        - [ ] preview (live, if possible)
+    - [x] docker integration
+    - [ ] Markdown/LaTeX preview (live, if possible)
 - [x] navigation
     - [x] file navigator (oil)
     - [x] file/dir search (telescope)
@@ -80,5 +79,14 @@ lsp, debugging and formatting, based on lspconfig and mason because (coc is good
 + nvim-lspconfig - collection of configuration for Nvim's LSP client, [github](https://github.com/neovim/nvim-lspconfig)
 + mason-lspconfig.nvim - bridge lspconfig and mason, [github](https://github.com/williamboman/mason-lspconfig.nvim)
 + mason.nvim - external tool manager (LSP servers, etc.), [github](https://github.com/williamboman/mason.nvim?tab=readme-ov-file)
-+ nvim-dap - debug adapter protocol (debugging support), [github](https://github.com/mfussenegger/nvim-dap)
-+ nvim-dap - debugger ui, [github](https://github.com/rcarriga/nvim-dap-ui)
++ nvim-dap - debug adapter protocol (debugging support), [github](https://github.com/mfussenegger/nvim-dap), [adapter configuraions](https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#python)
++ nvim-dap-ui - debugger ui, [github](https://github.com/rcarriga/nvim-dap-ui)
+
+## Languages
+To install language and it's tools uncomment required section in dockerfile.
+
+Dependencies:
+- Python:
+  - pip - python package manager
+  - python3 - python itself
+  - debugpy - implementation of DAP for python
