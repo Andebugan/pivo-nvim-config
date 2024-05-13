@@ -1,13 +1,13 @@
 # Pivodev - configuration files for building isolated docker-based development environments
 ![pivoscreen](https://github.com/Andebugan/pivodev/assets/40489252/9a6cec74-945b-4d7e-b849-a9c1a8a73c94)
 
-While working with different language ecosystems I often come into installation, compatability and cleaning problems so I decided to create set of docker based configurations for automatic building of development environments IDE and special tools included.
+While working with different language ecosystems I often come into installation, compatability and cleaning problems so I decided to create set of docker based configurations for automatic building of development environments IDE and special tools included. Basically [devcontainers](https://code.visualstudio.com/docs/devcontainers/containers), but nuclear option.
 
-Basic functionality:
+Functionality:
 - Configurable Dockerfile builder and runner
 - Flexible "swiss knife" Neovim configuration
 
-Functionality:
+What to expect:
 - [ ] development
     - [ ] code writing
         - [x] sytax highlight/analysis (nvim-treesitter)
