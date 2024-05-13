@@ -42,7 +42,7 @@ RUN git config --global user.email "${git_mail}"\
 # setup neovim configuration
 RUN mkdir ~/.config/\
     && cd ~\
-    && git clone -b develop git@github.com:Andebugan/pivodev.git\
+    && git clone -b nvim git@github.com:Andebugan/pivodev.git\
     && cp -r ~/pivodev/nvim ~/.config/
 
 
