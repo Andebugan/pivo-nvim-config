@@ -15,7 +15,7 @@ Languanges/platforms in mind:
 - [ ] Lua
 - [ ] Markdown
 - [ ] SQL
-- [~] Python
+- [x] Python
 - [ ] Rust
 
 TODO:
