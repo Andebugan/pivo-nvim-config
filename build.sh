@@ -84,4 +84,4 @@ if [[ "$run" == "no" ]]; then
 fi
 
 run_command='docker run '$run_args' --name '$contname' '$imgname
-echo $run_command
+eval $run_command
