@@ -8,8 +8,6 @@ return {
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
             local lspconfig = require("lspconfig")
 
-            local config = require("plugins.lang.config.config")
-
             -- default
 
             lspconfig.lua_ls.setup({ capabilities = capabilities })
@@ -23,6 +21,13 @@ return {
             lspconfig.marksman.setup({ capabilities = capabilities })
 
             -- configurable
+            if LANG_INSTALL_CONFIG.latex then
+                lspconfig.texlab.setup({ capabilities = capabilities })
+            end
+
+            if LANG_INSTALL_CONFIG.python then
+                lspconfig.pylsp.setup({ capabilities = capabilities })
+            end
 
             vim.keymap.set('n', '<leader>df', vim.diagnostic.open_float)
             vim.keymap.set('n', '<leader>gp', vim.diagnostic.goto_prev)

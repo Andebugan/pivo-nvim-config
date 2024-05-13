@@ -2,49 +2,29 @@ return {
     {
         "williamboman/mason.nvim",
         config = function()
-            local config = require("plugins.lang.config.config")
-
-            -- default 
-            local installed_packages = {
-                "stylua"
-            }
-
-            -- check config add packages
-            if config.ccpp then
-                table.insert(installed_packages, "codelldb")
-            end
-
-            require('mason').setup({
-                ensure_installed = installed_packages,
-            })
+            require('mason').setup()
         end
     },
     {
         "williamboman/mason-lspconfig.nvim",
         config = function()
-            local config = require("plugins.lang.config.config")
-
-            -- default 
-            local installed_packages = {
+            -- default
+            local packages = {
                 "lua_ls",
                 "docker_compose_language_service",
                 "dockerls",
                 "jsonls",
                 "lua_ls",
                 "yamlls",
-                "marksman"
+                "marksman",
             }
 
-            -- check config add packages
-            if config.ccpp then
-                table.insert(installed_packages, "ast_grep")
-            end
-            if config.latex then
-                table.insert(installed_packages, "texlab")
-            end
+            -- custom config add packages
+            if LANG_INSTALL_CONFIG.python then table.insert(packages, "pylsp") end
+            if LANG_INSTALL_CONFIG.latex then table.insert(packages, "texlab") end
 
             require("mason-lspconfig").setup({
-                ensure_installed = installed_packages,
+                ensure_installed = packages,
                 auto_install = true
             })
         end

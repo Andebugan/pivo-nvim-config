@@ -42,6 +42,7 @@ vim.keymap.set('n', '<Leader>br', '<cmd>brewind<cr>')      -- go to first buffer
 vim.keymap.set('n', '<Leader>bm', '<cmd>bmodified<cr>')    -- go to next modified buffer 
 vim.keymap.set('n', '<Leader>bu', '<cmd>bunload<cr>')      -- unload buffer
 vim.keymap.set('n', '<Leader>bd', '<cmd>bdelete<cr>')      -- delete buffer
+vim.keymap.set('n', '<Ledaer>bd!', '<cmd>bdelete!<cr>')    -- force delete buffer
 vim.keymap.set('n', '<Leader>bw', '<cmd>bwipeout<cr>')     -- wipe buffer
 
 -- cyrillic qwerty langmap
@@ -57,6 +58,9 @@ vim.o.shell = "bash"                                                -- change te
 
 -- lazy.nvim setup
 -- for correct symbol rendering Nerd Font should be installed (me have chosen Hack Mono you do you)
+
+LANG_INSTALL_CONFIG = require("plugins.config.config")
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     vim.fn.system({

@@ -32,7 +32,8 @@ RUN mkdir -p /root/.ssh\
 ARG git_user
 ARG git_mail
 
-RUN git config --global user.email=${git_mail} user.name=${git_user} 
+RUN git config --global user.email "${git_mail}"\
+    && git config --global user.name "${git_user}"
 
 # setup neovim configuration
 RUN mkdir ~/.config/\
@@ -56,14 +57,17 @@ ENV LANGUAGE en_US.UTF-8
 
 # FLAVOURS
 # could be added as additional installs to new pivodev image, or as new image, based on pivodev-base
-# for that use:
-# FROM pivodev-base:latest 
 
 # C/C++
 # TODO
 
 # Python
-# TODO
+# RUN apt install pip python3-venv -y\
+#   && mkdir /root/.virtualenvs\
+#   && cd /root/.virtualenvs\
+#   && python3 -m venv debugpy\
+#   && debugpy/bin/python -m pip install debugpy\
+#   && sed -i -e 's/python = false/python = true/g' /root/.config/nvim/lua/plugins/config/config.lua
 
 # C#
 #RUN wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
@@ -84,3 +88,6 @@ ENV LANGUAGE en_US.UTF-8
 # LaTeX
 #RUN apt-get install texlive texlive-xetex texlive-lang-cyrillic ttf-mscorefonts-installer -y\
 # && apt autoremove -y
+
+# TODO
+# move all changable parts to variables (rood dir path and etc)
