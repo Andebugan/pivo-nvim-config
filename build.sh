@@ -1,6 +1,7 @@
 #!/bin/bash
 
-depends="no" # pivodev-base? 
+from="debian" # base (debian/alpine)
+pivodev="yes" # pivodev-base/distro
 langs="" # python/csharp/ccpp... 
 build="no" # build/only generate dockerfile
 imgname="pivodev-base" # new image name 
@@ -8,10 +9,13 @@ run="no" # create container after image creation
 run_args="-dit"
 contname="pivodev" # new container name 
 
-while getopts 'dl:bi:rc:ha:' opt; do
+while getopts 'f:pl:bi:rc:ha:' opt; do
     case "$opt" in
-        d)
-            depends="yes"
+        f)
+            from="$OPTARG"
+            ;;
+        p)
+            pivodev="no"
             ;;
         l)
             langs=$langs"$OPTARG;"
@@ -32,12 +36,13 @@ while getopts 'dl:bi:rc:ha:' opt; do
             run_args="$OPTARG"
             ;;
         ?|h)
-            echo "Usage: $(basename $0) [-p] [-l {language}] [-b] [-i {image name}] [-r] [-c {container name}] [-a {arguments}]"
-            echo "-d - if used builds new image based on pivodev-base"
+            echo "Usage: $(basename $0) [-f {base image}] [-p] [-l {language}] [-b] [-i {image name}] [-r] [-c {container name}] [-a {arguments}]"
+            echo "-f {base image} - specify base image (debian/alpine/pivodev-base)"
+            echo "-p - pure instead of existing pivodev-base image"
             echo "-l {language} - add language support to image"
             echo "-b - builds new image if used"
             echo "-i {image name} - specifies name of new image"
-            echo "-r - if used new contained is created"
+            echo "-r - use docker run after build"
             echo "-c {container name} - specify container name"
             echo "-a {arguments} - specify run arguments"
             exit 1
@@ -49,23 +54,23 @@ shift "$(($OPTIND -1))"
 touch Dockerfile
 
 # add base
-if [ "$depends" == "yes" ]; then
-    cat docker/pivobase > Dockerfile 
-else  
-    cat docker/base > Dockerfile 
+if [[ "$pivodev" == "yes" ]]; then
+    cat docker/$from/base > Dockerfile 
+else
+    cat docker/$from/pivodev-base > Dockerfile 
 fi
 
 # add languages
 if [[ "$langs" == *"python"* ]]; then
-    cat docker/langs/python >> Dockerfile
+    cat docker/$from/langs/python >> Dockerfile
 fi
 
 if [[ "$langs" == *"latex"* ]]; then
-    cat docker/langs/latex >> Dockerfile
+    cat docker/$from/langs/latex >> Dockerfile
 fi
 
 if [[ "$langs" == *"csharp"* ]]; then
-    cat docker/langs/csharp >> Dockerfile
+    cat docker/$from/langs/csharp >> Dockerfile
 fi
 
 # build
