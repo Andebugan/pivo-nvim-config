@@ -37,14 +37,15 @@ ARG git_user
 ARG git_mail
 
 RUN git config --global user.email "${git_mail}"\
-    && git config --global user.name "${git_user}"
+    && git config --global user.name "${git_user}"\
+    && git config --global pull.rebase false 
 
 # setup neovim configuration
 RUN mkdir ~/.config/\
     && cd ~\
     && git clone -b nvim git@github.com:Andebugan/pivodev.git\
-    && cp -r ~/pivodev/nvim ~/.config/
-
+    && cp ~/pivodev/nvim/lua/plugins/config/config.lua ~/pivodev/nvim/lua/plugins/config/local_config.lua\
+    && ln -s ~/pivodev/nvim/ ~/.config/nvim
 
 # add custom bash command line
 RUN echo 'export SHELL="/bin/bash"' >> ~/.bashrc\

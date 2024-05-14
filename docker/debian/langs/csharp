@@ -4,5 +4,5 @@ RUN wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod
     && rm packages-microsoft-prod.deb\
     && apt-get install dotnet-sdk-8.0 dotnet-runtime-8.0 -y\
     && apt autoremove -y\
-    && sed -i -e 's/csharp = false/csharp= true/g' /root/.config/nvim/lua/plugins/config/config.lua
+    && sed -i -e 's/csharp = false/csharp= true/g' /root/.config/nvim/lua/plugins/config/local_config.lua
  
