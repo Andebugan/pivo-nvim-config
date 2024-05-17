@@ -1,7 +1,7 @@
 # Pivodev - configuration files for building isolated docker-based development environments
 ![pivoscreen](https://github.com/Andebugan/pivodev/assets/40489252/9a6cec74-945b-4d7e-b849-a9c1a8a73c94)
 
-While working with different language ecosystems I often come into installation, compatability and cleaning problems so I decided to create set of docker based configurations for automatic building of development environments IDE and special tools included. Basically [devcontainers](https://code.visualstudio.com/docs/devcontainers/containers), but nuclear option.
+While working with different language ecosystems I often come into installation, compatability and cleaning problems so I decided to create set of docker based configurations for automatic building of development environments IDE and special tools included. Basically [devcontainers](https://code.visualstudio.com/docs/devcontainers/containers) but with IDE inside.
 
 Functionality:
 - Configurable Dockerfile builder and runner
@@ -56,7 +56,7 @@ r name}] [-a "{arguments}"]
 -a "{arguments}" - specify run arguments
 ```
 
-Due to some commands that are being pushed into .bashrc on docker container generation nvim config will be fetched from git automatically. Unfortunatly I didn't figure out how to autoupdate configs more elegantly so for now have to leave it at that.
+To autoupdate docker based configuration pushes git commands for updating into .bash_profile because I couldn't figure out how to do it better.
 
 ## Dependencies
 - openssh-server - for ssh credentials management (pulling your repos from github/gitlab/etc.)
