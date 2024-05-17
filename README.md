@@ -56,6 +56,8 @@ r name}] [-a "{arguments}"]
 -a "{arguments}" - specify run arguments
 ```
 
+Due to some commands that are being pushed into .bashrc on install nvim config will be fetched automatically. Unfortunatly I didn't figure out how to autoupdate configs more elegantly so for now have to leave it at that.
+
 ## Dependencies
 - openssh-server - for ssh credentials management (pulling your repos from github/gitlab/etc.)
 - git - pulling repos 
