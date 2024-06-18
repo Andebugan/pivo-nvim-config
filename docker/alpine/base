@@ -1,14 +1,17 @@
 # BASE
-FROM debian:bookworm
-# <!> THIS IMAGE IS FOR LOCAL DEVELOPMENT CONTAINERS ONLY, DO NOT PUSH IT TO PUBLIC REGISTRIES <!>
+FROM alpine:latest
+# <!> THIS IMAGE IS FOR LOCAL DEVELOPMENT CONTAINERS ONLY, DO NOT PUSH IT TO PUBLIC REGISTIES <!>
 
 # update packages
-RUN apt-get update\
-    && apt-get upgrade -y\
-    && apt-get install npm -y
+RUN apk update\
+    && apk upgrade\
+    && apk add bash
+
+# install npm
+RUN apk add npm
 
 # install dependencies
-RUN apt-get install git wget openssh-server curl tar ripgrep fd-find -y
+RUN apk add git wget openssh openssh-server curl tar ripgrep fd
 
 # set bash shell
 SHELL ["/bin/bash", "-c"]
@@ -17,8 +20,7 @@ SHELL ["/bin/bash", "-c"]
 RUN curl -L -O "https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz"\
     && tar -C /opt -xzf nvim-linux64.tar.gz\
     && echo 'export PATH="$PATH:/opt/nvim-linux64/bin"' >> ~/.bashrc\
-    && rm nvim-linux64.tar.gz\
-    && apt-get autoremove -y
+    && rm nvim-linux64.tar.gz
 
 # ssh credentials
 ARG ssh_prv_key
@@ -33,7 +35,17 @@ RUN mkdir -p /root/.ssh\
     && chmod 600 /root/.ssh/id_rsa.pub
 
 # install locales
-RUN apt-get install -y locales locales-all
+ENV MUSL_LOCALE_DEPS cmake make musl-dev gcc gettext-dev libintl
+ENV MUSL_LOCPATH /usr/share/i18n/locales/musl
+
+RUN apk add --no-cache \
+    $MUSL_LOCALE_DEPS \
+    && wget https://gitlab.com/rilian-la-te/musl-locales/-/archive/master/musl-locales-master.zip \
+    && unzip musl-locales-master.zip \
+    && cd musl-locales-master \
+    && cmake -DLOCALE_PROFILE=OFF -D CMAKE_INSTALL_PREFIX:PATH=/usr . && make && make install \
+    && cd .. && rm -r musl-locales-master
+
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
