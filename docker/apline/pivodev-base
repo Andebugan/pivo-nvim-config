@@ -1,4 +1,4 @@
 # BASE
-FROM pivodev-deb-base:latest 
+FROM pivodev-alpine-base:latest 
 # <!> THIS IMAGE IS FOR LOCAL DEVELOPMENT CONTAINERS ONLY, DO NOT PUSH IT TO PUBLIC REGISTIES <!>
 

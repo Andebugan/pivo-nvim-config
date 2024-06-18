@@ -1,0 +1,17 @@
+# BASE
+FROM apline:latest
+# <!> THIS IMAGE IS FOR LOCAL DEVELOPMENT CONTAINERS ONLY, DO NOT PUSH IT TO PUBLIC REGISTIES <!>
+
+# update packages
+
+# install neovim
+
+# ssh credentials
+
+# install locales
+
+# git setup
+
+# setup neovim configuration
+
+# add custom bash command line
