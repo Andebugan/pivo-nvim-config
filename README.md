@@ -1,7 +1,7 @@
 # Pivodev - configuration files for building isolated docker-based development environments
 ![pivoscreen](https://github.com/Andebugan/pivodev/assets/40489252/9a6cec74-945b-4d7e-b849-a9c1a8a73c94)
 
-While working with different language ecosystems I often come into installation, compatability and cleaning problems so I decided to create set of docker based configurations for automatic building of development environments IDE and special tools included. Basically [devcontainers](https://code.visualstudio.com/docs/devcontainers/containers) but with IDE inside.
+While working with different language ecosystems I often come into installation, compatability and cleaning problems so I decided to create set of docker based configurations for automatic building of development environments IDE and special tools included. Basically [devcontainers](https://code.visualstudio.com/docs/devcontainers/containers) but IDE is inside them.
 
 Functionality:
 - Configurable Dockerfile builder and runner
@@ -9,12 +9,12 @@ Functionality:
 
 What to expect:
 - [ ] development
-    - [ ] code writing
+    - [x] code writing
         - [x] sytax highlight/analysis (nvim-treesitter)
         - [x] code completions (luasnip, nvim-cmp)
         - [x] code suggestions (mason, lspconfig)
     - [x] git integration (gitsigns, vim-fugitive)
-    - [ ] documentation
+    - [ ] documentation integration
     - [x] project management (telescope projects)
     - [x] docker integration
     - [ ] Markdown/LaTeX preview (live, if possible)
@@ -56,7 +56,7 @@ r name}] [-a "{arguments}"]
 -a "{arguments}" - specify run arguments
 ```
 
-To autoupdate docker based configuration pushes git commands for updating into .bash_profile because I couldn't figure out how to do it better.
+To update neovim configuration from repo (if installed inside container) you can simply `git pull` inside repo or use `<leader>U` keymap. 
 
 ## Dependencies
 - openssh-server - for ssh credentials management (pulling your repos from github/gitlab/etc.)
@@ -68,8 +68,9 @@ To autoupdate docker based configuration pushes git commands for updating into .
 ### Config file structure
 Package structure:
 - init.lua - contains neovim settings (keybindings, autocommands, package manager initialization)
+- after - for scripts that must be executed after loading
 - lua - package folder
-    - plugins.lua - lazy file    
+    - plugins.lua - lazy file 
     - plugins - contains all installed packages configurations
         - base - global neovim plugins
         - config - contains language configuration file for simple controll, if value is true - tools are installed automatically
@@ -107,6 +108,8 @@ lsp, debugging and formatting, based on lspconfig and mason because (coc is good
 + mason.nvim - external tool manager (LSP servers, etc.), [github](https://github.com/williamboman/mason.nvim?tab=readme-ov-file)
 + nvim-dap - debug adapter protocol (debugging support), [github](https://github.com/mfussenegger/nvim-dap), [adapter configuraions](https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#python)
 + nvim-dap-ui - debugger ui, [github](https://github.com/rcarriga/nvim-dap-ui)
+
+For testing this config uses neotest and it's adapters
 
 ## Language dependencies
 Dependencies:
