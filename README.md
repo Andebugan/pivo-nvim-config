@@ -109,7 +109,7 @@ lsp, debugging and formatting, based on lspconfig and mason because (coc is good
 + nvim-dap - debug adapter protocol (debugging support), [github](https://github.com/mfussenegger/nvim-dap), [adapter configuraions](https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#python)
 + nvim-dap-ui - debugger ui, [github](https://github.com/rcarriga/nvim-dap-ui)
 
-For testing - [neotest](https://github.com/nvim-neotest/neotest) and it's adapters
+For testing - neotest and it's adapters, [github](https://github.com/nvim-neotest/neotest)
 
 ## Language dependencies
 Dependencies:
