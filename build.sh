@@ -2,14 +2,14 @@
 
 from="debian" # base (debian/alpine)
 pivodev="yes" # pivodev-base/distro
-langs="" # python/csharp/ccpp... 
+extensions="" # python/csharp/ccpp... 
 build="no" # build/only generate dockerfile
 imgname="pivodev-base" # new image name 
 run="no" # create container after image creation
 run_args="-dit"
 contname="pivodev" # new container name 
 
-while getopts 'f:pl:bi:rc:ha:' opt; do
+while getopts 'f:pe:bi:rc:ha:' opt; do
     case "$opt" in
         f)
             from="$OPTARG"
@@ -17,8 +17,8 @@ while getopts 'f:pl:bi:rc:ha:' opt; do
         p)
             pivodev="no"
             ;;
-        l)
-            langs=$langs"$OPTARG;"
+        e)
+            extensions=$extensions"$OPTARG;"
             ;;
         b)
             build="yes"
@@ -36,10 +36,10 @@ while getopts 'f:pl:bi:rc:ha:' opt; do
             run_args="$OPTARG"
             ;;
         ?|h)
-            echo "Usage: $(basename $0) [-f {base image}] [-p] [-l {language}] [-b] [-i {image name}] [-r] [-c {container name}] [-a \"{arguments}]"
+            echo "Usage: $(basename $0) [-f {base image}] [-p] [-e {extension}] [-b] [-i {image name}] [-r] [-c {container name}] [-a \"{arguments}]"
             echo "-f {base image} - specify base distro (debian/alpine)"
             echo "-p - use pivodev-base image"
-            echo "-l {language} - add language support to image"
+            echo "-e {extension} - add language or tool support to image"
             echo "-b - builds new image if used"
             echo "-i {image name} - specifies name of new image"
             echo "-r - use docker run after build"
@@ -61,16 +61,26 @@ else
 fi
 
 # add languages
-if [[ "$langs" == *"python"* ]]; then
-    cat docker/$from/langs/python >> Dockerfile
+if [[ "$extensions" == *"python"* ]]; then
+    cat docker/$from/extensions/python >> Dockerfile
 fi
 
-if [[ "$langs" == *"latex"* ]]; then
-    cat docker/$from/langs/latex >> Dockerfile
+if [[ "$extensions" == *"latex"* ]]; then
+    cat docker/$from/extensions/latex >> Dockerfile
 fi
 
-if [[ "$langs" == *"csharp"* ]]; then
-    cat docker/$from/langs/csharp >> Dockerfile
+if [[ "$extensions" == *"csharp"* ]]; then
+    cat docker/$from/extensions/csharp >> Dockerfile
+fi
+
+# pull nvim config into db container
+if [[ "$extensions" == *"postgres"* ]]; then
+    cat docker/$from/extensions/postgres >> Dockerfile
+fi
+
+# add db tools for connection and work with external database
+if [[ "$extensions" == *"dbtools"* ]]; then
+    cat docker/$from/extensions/dbtools >> Dockerfile
 fi
 
 # build

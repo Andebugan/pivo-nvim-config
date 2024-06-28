@@ -60,6 +60,5 @@ RUN echo 'export SHELL="/bin/bash"' >> ~/.bashrc\
     && echo 'alias ll="ls $LS_OPTIONS -l"' >> ~/.bashrc\
     && echo 'alias l="ls $LS_OPTIONS -lA"' >> ~/.bashrc\
     && echo 'eval "$(dircolors)"' >> ~/.bashrc\
-    && echo PROMPT_COMMAND=\'PS1_CMD1='$(git branch --show-current 2>/dev/null)'\'\; PS1=\''\[\e[38;5;221;2m\]\u\[\e[0;90m\]@\[\e[38;5;209;2m\]\h\[\e[0;90m\]|\[\e[93m\]\w\[\e[90m\]|\[\e[1;32m\]${PS1_CMD1}\n\[\e[90m\]>\[\e[0m\] '\' >> ~/.bashrc\
-    && echo 'echo "fetching newest pivodev nvim config..."' >> ~/.bashrc\
-    && echo '(cd "$HOME/pivodev"; git fetch; git pull)' >> ~/.bashrc
+    && echo PROMPT_COMMAND=\'PS1_CMD1='$(git branch --show-current 2>/dev/null)'\'\; PS1=\''\[\e[38;5;221;2m\]\u\[\e[0;90m\]@\[\e[38;5;209;2m\]\h\[\e[0;90m\]|\[\e[93m\]\w\[\e[90m\]|\[\e[1;32m\]${PS1_CMD1}\n\[\e[90m\]>\[\e[0m\] '\' >> ~/.bashrc
+
