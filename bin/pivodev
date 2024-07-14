@@ -1,7 +1,7 @@
 #!/bin/bash
 
 from="debian" # base (debian/alpine)
-pivodev=true # pivodev-base/distro
+pivodev=false # use existing pivodev base image
 extensions="" # python/csharp/ccpp... 
 build=false # build/only generate dockerfile
 imgname="pivodev-base" # new image name 
@@ -15,7 +15,7 @@ while getopts 'f:pe:bi:rc:ha:' opt; do
             from="$OPTARG"
             ;;
         p)
-            pivodev=false
+            pivodev=true
             ;;
         e)
             extensions=$extensions"$OPTARG;"
@@ -55,7 +55,7 @@ shift "$(($OPTIND -1))"
 touch "$PWD/Dockerfile"
 
 # add base
-if [[ "$pivodev" == true ]]; then
+if [[ "$pivodev" == false ]]; then
     cat $PIVODEV_DOCKER_DIR/$from/base > "$PWD/Dockerfile" 
 else
     cat $PIVODEV_DOCKER_DIR/$from/pivodev-base > "$PWD/Dockerfile" 
@@ -96,7 +96,7 @@ fi
 eval $build_command
 
 # run
-if [[ "$run" == true ]]; then
+if [[ "$run" == false ]]; then
     exit 1
 fi
 
