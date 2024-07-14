@@ -45,14 +45,14 @@ Languanges/platforms in mind:
 ## Docker
 To use pivodev dockerfile builder you must execute install.sh script wich will simply add bin path and several bash variables into .bashrc (it can be done by hand if needed). Do not forget to source `.bashrc`. After that `pivodev` utility will be avaliable globally:
 ```
-Usage: pivodev [-f {base image}] [-p] [-l {language}] [-b] [-i {image name}] [-r] [-c {containe
-r name}] [-a "{arguments}"]
+Usage: pivodev [-f {base image}] [-p] [-e {extension}] [-b] [-i {image name}] [-r] [-c {container name}] [-a "{arguments}]
 -f {base image} - specify base distro (debian/alpine)
--p - use pivodev-base image
--l {language} - add language support to image
--b - builds new image if used
--i {image name} - specifies name of new image
--r - use docker run after build
+-p - use existing pivodev-base image
+-e {extension} - add language or tool to image, supported extensions include:
+  python, latex, csharp, postgres (pull nvim config into postgres container), dbtools (add nvim tools to work with existing container)
+-b - builds new image immediatly
+-i {image name} - specifies name (tag) of new image
+-r - execute docker run after build
 -c {container name} - specify container name
 -a "{arguments}" - specify run arguments
 ```
