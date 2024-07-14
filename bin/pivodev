@@ -1,11 +1,11 @@
 #!/bin/bash
 
 from="debian" # base (debian/alpine)
-pivodev="yes" # pivodev-base/distro
+pivodev=true # pivodev-base/distro
 extensions="" # python/csharp/ccpp... 
-build="no" # build/only generate dockerfile
+build=false # build/only generate dockerfile
 imgname="pivodev-base" # new image name 
-run="no" # create container after image creation
+run=false # create container after image creation
 run_args="-dit"
 contname="pivodev" # new container name 
 
@@ -15,19 +15,19 @@ while getopts 'f:pe:bi:rc:ha:' opt; do
             from="$OPTARG"
             ;;
         p)
-            pivodev="no"
+            pivodev=false
             ;;
         e)
             extensions=$extensions"$OPTARG;"
             ;;
         b)
-            build="yes"
+            build=true
             ;;
         i)
             imgname="$OPTARG"
             ;;
         r)
-            run="yes"
+            run=true
             ;;
         c)
             contname="$OPTARG"
@@ -38,11 +38,12 @@ while getopts 'f:pe:bi:rc:ha:' opt; do
         ?|h)
             echo "Usage: $(basename $0) [-f {base image}] [-p] [-e {extension}] [-b] [-i {image name}] [-r] [-c {container name}] [-a \"{arguments}]"
             echo "-f {base image} - specify base distro (debian/alpine)"
-            echo "-p - use pivodev-base image"
-            echo "-e {extension} - add language or tool support to image"
-            echo "-b - builds new image if used"
-            echo "-i {image name} - specifies name of new image"
-            echo "-r - use docker run after build"
+            echo "-p - use existing pivodev-base image"
+            echo "-e {extension} - add language or tool to image, supported extensions include:"
+            echo "  python, latex, csharp, postgres (pull nvim config into postgres container), dbtools (add nvim tools to work with existing container)"
+            echo "-b - builds new image immediatly"
+            echo "-i {image name} - specifies name (tag) of new image"
+            echo "-r - execute docker run after build"
             echo "-c {container name} - specify container name"
             echo "-a \"{arguments}\" - specify run arguments"
             exit 1
@@ -51,41 +52,42 @@ while getopts 'f:pe:bi:rc:ha:' opt; do
 done
 shift "$(($OPTIND -1))"
 
-touch Dockerfile
+touch "$PWD/Dockerfile"
 
 # add base
-if [[ "$pivodev" == "yes" ]]; then
-    cat docker/$from/base > Dockerfile 
+if [[ "$pivodev" == true ]]; then
+    cat $PIVODEV_DOCKER_DIR/$from/base > "$PWD/Dockerfile" 
 else
-    cat docker/$from/pivodev-base > Dockerfile 
+    cat $PIVODEV_DOCKER_DIR/$from/pivodev-base > "$PWD/Dockerfile" 
 fi
 
 # add languages
 if [[ "$extensions" == *"python"* ]]; then
-    cat docker/$from/extensions/python >> Dockerfile
+    cat $PIVODEV_DOCKER_DIR/$from/extensions/python >> "$PWD/Dockerfile"
 fi
 
 if [[ "$extensions" == *"latex"* ]]; then
-    cat docker/$from/extensions/latex >> Dockerfile
+    cat $PIVODEV_DOCKER_DIR/$from/extensions/latex >> "$PWD/Dockerfile"
 fi
 
 if [[ "$extensions" == *"csharp"* ]]; then
-    cat docker/$from/extensions/csharp >> Dockerfile
+    cat $PIVODEV_DOCKER_DIR/$from/extensions/csharp >> "$PWD/Dockerfile"
 fi
 
 # pull nvim config into db container
 if [[ "$extensions" == *"postgres"* ]]; then
-    cat docker/$from/extensions/postgres >> Dockerfile
+    cat $PIVODEV_DOCKER_DIR/$from/extensions/postgres >> "$PWD/Dockerfile"
 fi
 
-# add db tools for connection and work with external database
+# add db tools for work with external databases
 if [[ "$extensions" == *"dbtools"* ]]; then
-    cat docker/$from/extensions/dbtools >> Dockerfile
+    cat $PIVODEV_DOCKER_DIR/$from/extensions/dbtools >> "$PWD/Dockerfile"
 fi
 
 # build
 build_command='docker build -t '$imgname' --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --build-arg git_user="$(git config user.name)" --build-arg git_mail="$(git config user.email)" --squash .'
-if [[ "$build" == "no" ]]; then
+
+if [[ "$build" == false ]]; then
     echo "Build command:"
     echo $build_command
     exit 1
@@ -94,7 +96,7 @@ fi
 eval $build_command
 
 # run
-if [[ "$run" == "no" ]]; then
+if [[ "$run" == true ]]; then
     exit 1
 fi
 
