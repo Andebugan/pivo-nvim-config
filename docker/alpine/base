@@ -64,6 +64,7 @@ RUN mkdir ~/.config/\
 
 # add custom bash command line
 RUN echo 'export SHELL="/bin/bash"' >> ~/.bashrc\
+    && echo 'LS_COLORS=$LS_COLORS:"ow=1;35:" ; export LS_COLORS' >>/.bashrc\
     && echo 'export LS_OPTIONS="--color=auto"' >> ~/.bashrc\
     && echo 'alias ls="ls $LS_OPTIONS"' >> ~/.bashrc\
     && echo 'alias ll="ls $LS_OPTIONS -l"' >> ~/.bashrc\
