@@ -42,9 +42,10 @@ Languanges/platforms in mind:
 - `nvim` branch contains neovim configuration
 - `docker` branch contains files for building developer environments
 
-To create new image/containes use build.sh script:
+## Docker
+To use pivodev dockerfile builder you must execute install.sh script wich will simply add bin path and several bash variables into .bashrc (it can be done by hand if needed). Do not forget to source `.bashrc`. After that `pivodev` utility will be avaliable globally:
 ```
-Usage: build.sh [-f {base image}] [-p] [-l {language}] [-b] [-i {image name}] [-r] [-c {containe
+Usage: pivodev [-f {base image}] [-p] [-l {language}] [-b] [-i {image name}] [-r] [-c {containe
 r name}] [-a "{arguments}"]
 -f {base image} - specify base distro (debian/alpine)
 -p - use pivodev-base image
@@ -56,14 +57,8 @@ r name}] [-a "{arguments}"]
 -a "{arguments}" - specify run arguments
 ```
 
-To update neovim configuration from repo (if installed inside container) you can simply `git pull` inside repo or use `<leader>U` keymap. 
-
-## Dependencies
-- openssh-server - for ssh credentials management (pulling your repos from github/gitlab/etc.)
-- git - pulling repos 
-- curl - downloading neovim (sadly apt-based package managers do not provide latest versions of neovim)
-
 ## Neovim
+To update neovim configuration from repo (if installed inside container) you can simply `git pull` inside repo or use `<leader>U` keymap wich basically does the same. 
 
 ### Config file structure
 Package structure:
