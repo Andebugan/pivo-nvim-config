@@ -40,7 +40,7 @@ while getopts 'f:pe:bi:rc:ha:' opt; do
             echo "-f {base image} - specify base distro (debian/alpine)"
             echo "-p - use existing pivodev-base image"
             echo "-e {extension} - add language or tool to image, supported extensions include:"
-            echo "  python, latex, csharp, postgres (pull nvim config into postgres container), dbtools (add nvim tools to work with existing container)"
+            echo "  python, csharp, go, latex, postgres, dbtools"
             echo "-b - builds new image immediatly"
             echo "-i {image name} - specifies name (tag) of new image"
             echo "-r - execute docker run after build"
@@ -66,12 +66,16 @@ if [[ "$extensions" == *"python"* ]]; then
     cat $PIVODEV_DOCKER_DIR/$from/extensions/python >> "$PWD/Dockerfile"
 fi
 
-if [[ "$extensions" == *"latex"* ]]; then
-    cat $PIVODEV_DOCKER_DIR/$from/extensions/latex >> "$PWD/Dockerfile"
-fi
-
 if [[ "$extensions" == *"csharp"* ]]; then
     cat $PIVODEV_DOCKER_DIR/$from/extensions/csharp >> "$PWD/Dockerfile"
+fi
+
+if [[ "$extensions" == *"go"* ]]; then
+    cat $PIVODEV_DOCKER_DIR/$from/extensions/go>> "$PWD/Dockerfile"
+fi
+
+if [[ "$extensions" == *"latex"* ]]; then
+    cat $PIVODEV_DOCKER_DIR/$from/extensions/latex >> "$PWD/Dockerfile"
 fi
 
 # pull nvim config into db container
