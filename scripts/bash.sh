@@ -16,4 +16,4 @@ echo 'export SHELL="/bin/bash"' >> ~/.bashrc\
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf\
     && ~/.fzf/install --all
 
-source ~/.bashrc
+echo 'Source bash config to apply changes: source ~/.bashrc'
