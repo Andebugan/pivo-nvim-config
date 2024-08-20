@@ -3,30 +3,11 @@
 
 While working with different language ecosystems I often come into installation, compatability and cleaning problems so I decided to create set of docker based configurations for automatic building of development environments IDE and special tools included. Basically [devcontainers](https://code.visualstudio.com/docs/devcontainers/containers) but IDE is inside them.
 
-To achieve this all needed tools are installed inside container with [pivodev-nvim](https://github.com/Andebugan/pivodev-nvim/tree/master)
+To achieve this all needed tools are installed inside container with [pivodev-nvim](https://github.com/Andebugan/pivodev-nvim/tree/master) or [pivodev-vim](https://github.com/Andebugan/pivodev-vim)
 
 Functionality:
 - Configurable Dockerfile builder and runner
 - Flexible "swiss knife" Neovim configuration
-
-What to expect:
-- [ ] development
-    - [x] code writing
-        - [x] sytax highlight/analysis (nvim-treesitter)
-        - [x] code completions (luasnip, nvim-cmp)
-        - [x] code suggestions (mason, lspconfig)
-    - [x] git integration (gitsigns, vim-fugitive)
-    - [ ] documentation integration
-    - [x] project management (telescope projects)
-    - [x] docker integration
-    - [ ] Markdown/LaTeX preview (live, if possible)
-- [x] navigation
-    - [x] file navigator (oil)
-    - [x] file/dir search (telescope)
-- [x] utility
-    - [x] pivo screen
-    - [x] custom bash line config
-        - [x] git info
 
 Languanges/platforms in mind:
 - [x] Python
