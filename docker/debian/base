@@ -4,21 +4,13 @@ FROM debian:bookworm
 
 # update packages
 RUN apt-get update\
-    && apt-get upgrade -y\
-    && apt-get install npm -y
+    && apt-get upgrade -y
 
-# install dependencies
-RUN apt-get install git wget openssh-server curl tar ripgrep fd-find -y
+# install git
+RUN apt-get install git -y
 
 # set bash shell
 SHELL ["/bin/bash", "-c"]
-
-# install neovim
-RUN curl -L -O "https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz"\
-    && tar -C /opt -xzf nvim-linux64.tar.gz\
-    && echo 'export PATH="$PATH:/opt/nvim-linux64/bin"' >> ~/.bashrc\
-    && rm nvim-linux64.tar.gz\
-    && apt-get autoremove -y
 
 # ssh credentials
 ARG ssh_prv_key
@@ -46,23 +38,3 @@ RUN git config --global user.email "${git_mail}"\
     && git config --global user.name "${git_user}"\
     && git config --global pull.rebase false 
 
-# setup neovim configuration
-RUN mkdir ~/.config/\
-    && cd ~\
-    && git clone -b nvim git@github.com:Andebugan/pivodev.git\
-    && cp ~/pivodev/nvim/lua/plugins/config/config.lua ~/pivodev/nvim/lua/plugins/config/local_config.lua\
-    && ln -s ~/pivodev/nvim/ ~/.config/nvim
-
-# add custom bash command line
-RUN echo 'export SHELL="/bin/bash"' >> ~/.bashrc\
-    && echo 'export LS_OPTIONS="--color=auto"' >> ~/.bashrc\
-    && echo 'alias ls="ls $LS_OPTIONS"' >> ~/.bashrc\
-    && echo 'alias ll="ls $LS_OPTIONS -l"' >> ~/.bashrc\
-    && echo 'alias l="ls $LS_OPTIONS -lA"' >> ~/.bashrc\
-    && echo 'eval "$(dircolors)"' >> ~/.bashrc\
-    && echo 'LS_COLORS=$LS_COLORS:"ow=1;35:" ; export LS_COLORS' >> ~/.bashrc\
-    && echo PROMPT_COMMAND=\'PS1_CMD1='$(git branch --show-current 2>/dev/null)'\'\; PS1=\''\[\e[38;5;221;2m\]\u\[\e[0;90m\]@\[\e[38;5;209;2m\]\h\[\e[0;90m\]|\[\e[93m\]\w\[\e[90m\]|\[\e[1;32m\]${PS1_CMD1}\n\[\e[90m\]>\[\e[0m\] '\' >> ~/.bashrc
-
-# install fzf
-RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf\
-    && ~/.fzf/install
