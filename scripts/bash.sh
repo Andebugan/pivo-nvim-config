@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt-get install git wget openssh-server curl tar rigrep fd-find
+apt-get install git wget openssh-server curl tar ripgrep fd-find -y
 
 # add custom bash command line
 echo 'export SHELL="/bin/bash"' >> ~/.bashrc\
@@ -14,4 +14,6 @@ echo 'export SHELL="/bin/bash"' >> ~/.bashrc\
 
 # install fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf\
-    && ~/.fzf/install
+    && ~/.fzf/install --all
+
+source ~/.bashrc
