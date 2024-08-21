@@ -12,6 +12,9 @@ RUN apt-get install git -y
 # set bash shell
 SHELL ["/bin/bash", "-c"]
 
+# add root check for running sudo scripts
+
+
 # ssh credentials
 ARG ssh_prv_key
 ARG ssh_pub_key

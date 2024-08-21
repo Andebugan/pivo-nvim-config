@@ -1,6 +1,10 @@
 #!/bin/bash
 
-apt-get install git wget openssh-server curl tar ripgrep fd-find -y
+sudo apt-get install git wget openssh-server curl tar ripgrep fd-find -y
+
+echo 'if [ $(id -u) -eq 0]; then' >> ~/.bashrc\
+    && echo '   alias sudo=eval' >> ~/.bashrc\
+    && echo 'fi' >> ~./bashrc
 
 # add custom bash command line
 echo 'export SHELL="/bin/bash"' >> ~/.bashrc\

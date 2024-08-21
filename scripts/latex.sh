@@ -1,3 +1,3 @@
 #!/bin/bash
-apt-get install texlive texlive-xetex texlive-lang-cyrillic ttf-mscorefonts-installer -y\
-    && apt autoremove -y
+sudo apt-get install texlive texlive-xetex texlive-lang-cyrillic ttf-mscorefonts-installer -y\
+    && sudo apt autoremove -y
