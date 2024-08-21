@@ -20,4 +20,14 @@ echo 'export SHELL="/bin/bash"' >> ~/.bashrc\
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf\
     && ~/.fzf/install --all
 
+# install bat (batcat)
+sudo apt install bat
+echo 'alias bat="batcat"' >> ~/.bashrc
+
+# install blesh
+sudo apt install git make gawk
+git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git ~/.blesh
+(cd ~/.blesh && make install PREFIX=~/.local)
+echo 'source ~/.local/share/blesh/ble.sh' >> ~/.bashrc
+
 echo 'Source bash config to apply changes: source ~/.bashrc'

@@ -61,34 +61,26 @@ else
     cat $PIVODEV_DOCKER_DIR/$from/pivodev-base > "$PWD/Dockerfile" 
 fi
 
-cat 'CWD /root'
-
-# install bash tools
-cat 'RUN ./pivodev/scripts/bash.sh' >> "$PWD/Dockerfile"
-
-# install nvim
-cat 'RUN ./pivodev/scripts/nvim.sh' >> "$PWD/Dockerfile"
-
 # add languages
 if [[ "$extensions" == *"python"* ]]; then
-    cat 'RUN ./pivodev/scripts/python.sh' >> "$PWD/Dockerfile"
+    cat 'RUN ~/pivodev/scripts/python.sh' >> "$PWD/Dockerfile"
 fi
 
 if [[ "$extensions" == *"csharp"* ]]; then
-    cat 'RUN ./pivodev/scripts/csharp.sh' >> "$PWD/Dockerfile"
+    cat 'RUN ~/pivodev/scripts/csharp.sh' >> "$PWD/Dockerfile"
 fi
 
 if [[ "$extensions" == *"go"* ]]; then
-    cat 'RUN ./pivodev/scripts/go.sh' >> "$PWD/Dockerfile"
+    cat 'RUN ~/pivodev/scripts/go.sh' >> "$PWD/Dockerfile"
 fi
 
 if [[ "$extensions" == *"latex"* ]]; then
-    cat 'RUN ./pivodev/scripts/latex.sh' >> "$PWD/Dockerfile"
+    cat 'RUN ~/pivodev/scripts/latex.sh' >> "$PWD/Dockerfile"
 fi
 
 # pull nvim config into db container
 if [[ "$extensions" == *"postgres"* ]]; then
-    cat 'RUN ./pivodev/scripts/postgres.sh' >> "$PWD/Dockerfile"
+    cat 'RUN ~/pivodev/scripts/postgres.sh' >> "$PWD/Dockerfile"
 fi
 
 # add db tools for work with external databases
