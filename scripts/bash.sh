@@ -28,6 +28,8 @@ echo 'alias bat="batcat"' >> ~/.bashrc
 sudo apt install git make gawk
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git ~/.blesh
 (cd ~/.blesh && make install PREFIX=~/.local)
+# remove competing completion package
+sudo apt remove bash-completion
 echo 'source ~/.local/share/blesh/ble.sh' >> ~/.bashrc
 
 echo 'Source bash config to apply changes: source ~/.bashrc'
