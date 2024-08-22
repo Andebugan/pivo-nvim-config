@@ -17,15 +17,15 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf\
     && ~/.fzf/install --all
 
 # install bat (batcat)
-sudo apt install bat
+sudo apt install bat -y
 echo 'alias bat="batcat"' >> ~/.bashrc
 
 # install blesh
-sudo apt install git make gawk
+sudo apt install git make gawk -y
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git ~/.blesh
 (cd ~/.blesh && make install PREFIX=~/.local)
 # remove competing completion package
-sudo apt remove bash-completion
+sudo apt remove bash-completion -y
 echo 'source ~/.local/share/blesh/ble.sh' >> ~/.bashrc
 
 echo 'Source bash config to apply changes: source ~/.bashrc'
