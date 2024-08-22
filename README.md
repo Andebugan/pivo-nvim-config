@@ -30,6 +30,14 @@ Languanges/platforms in mind:
 - [ ] SQL
 - [ ] Rust
 
+## Installation
+
+To install pivodev:
+```
+git clone https://github.com/Andebugan/pivodev ~/.pivodev
+(cd ~/.pivodev && ./install.sh)
+```
+
 ## Container builder
 To use pivodev dockerfile builder you must execute install.sh script wich will simply add bin path and several bash variables into .bashrc (it can be done by hand if needed). Do not forget to source `.bashrc`. After that `pivodev` utility will be avaliable globally:
 ```
@@ -44,7 +52,6 @@ Usage: pivodev [-f {base image}] [-p] [-e {extension}] [-b] [-i {image name}] [-
 -c {container name} - specify container name
 -a "{arguments}" - specify run arguments
 ```
-
 
 ## Language dependencies
 Dependencies:

@@ -15,6 +15,6 @@ sudo curl -L -O "https://github.com/neovim/neovim/releases/latest/download/nvim-
 # setup neovim configuration
 mkdir -p ~/.config/\
     && cd ~\
-    && git clone git@github.com:Andebugan/pivodev-nvim.git\
-    && cp ~/pivodev-nvim/nvim/lua/plugins/config/config.lua ~/pivodev-nvim/nvim/lua/plugins/config/local_config.lua\
-    && ln -s ~/pivodev-nvim/nvim/ ~/.config/nvim 
+    && git clone git@github.com:Andebugan/pivodev-nvim.git ~/.pivodev-nvim\
+    && cp ~/.pivodev-nvim/nvim/lua/plugins/config/config.lua ~/.pivodev-nvim/nvim/lua/plugins/config/local_config.lua\
+    && ln -s ~/.pivodev-nvim/nvim/ ~/.config/nvim 
