@@ -16,8 +16,8 @@ SHELL ["/bin/bash", "-c"]
 RUN touch ~/.bashrc\
     && echo 'if [ $(id -u) -eq 0]; then' >> ~/.bashrc\
     && echo '   alias sudo=eval' >> ~/.bashrc\
-    && echo 'fi' >> ~./bashrc\
-    && echo '' >> ~./bashrc
+    && echo 'fi' >> ~/.bashrc\
+    && echo '' >> ~/.bashrc
 
 # ssh credentials
 ARG ssh_prv_key
