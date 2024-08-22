@@ -134,7 +134,7 @@ elif [[ "$action" == "build" ]]; then
             shift
             imgname="$1"
         elif [[ "$1" == "$run_option" ]]; then
-            run = true
+            run=true
         elif [[ "$1" == "$run_args_option" ]]; then
             shift
             run_args="$1"
@@ -159,20 +159,17 @@ elif [[ "$action" == "build" ]]; then
 
     if [[ "$build" == false ]]; then
         echo $build_command
-        exit 0
+    else
+        # build image
+        eval $build_command
     fi
-
-    # build image
-    eval $build_command
 
     # run
-    if [[ "$run" == false ]]; then
-        exit 0
+    if [[ "$run" == true ]] && [[ "$build" == true ]]; then
+        # run container
+        run_command='docker run '$run_args' --name '$contname' '$imgname
+        eval $run_command
     fi
-
-    # run container
-    run_command='docker run '$run_args' --name '$contname' '$imgname
-    eval $run_command
 
     # clean files
     if [[ "$clean_files" == true ]]; then
