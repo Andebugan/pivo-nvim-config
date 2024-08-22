@@ -152,7 +152,7 @@ elif [[ "$action" == "build" ]]; then
 
     # create dockerfile
     touch "$PWD/Dockerfile"
-    cat $PIVODIR/docker/debian_base > "$PWD/Dockerfile" 
+    cp $PIVODIR/docker/debian/Dockerfile "$PWD/Dockerfile" 
 
     # build
     build_command='docker build -t '$imgname' --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --build-arg git_user="$(git config user.name)" --build-arg git_mail="$(git config user.email)" --squash .'
