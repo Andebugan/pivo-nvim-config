@@ -12,6 +12,12 @@ RUN apt-get install git -y
 # set bash shell
 SHELL ["/bin/bash", "-c"]
 
+# sudo ignorer for executing bash commands
+RUN echo 'if [ $(id -u) -eq 0]; then' >> ~/.bashrc\
+    && echo '   alias sudo=eval' >> ~/.bashrc\
+    && echo 'fi' >> ~./bashrc\
+    && echo '' >> ~./bashrc
+
 # ssh credentials
 ARG ssh_prv_key
 ARG ssh_pub_key
