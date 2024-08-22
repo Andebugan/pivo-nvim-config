@@ -12,13 +12,6 @@ RUN apt-get install git -y
 # set bash shell
 SHELL ["/bin/bash", "-c"]
 
-# sudo ignorer for executing bash commands
-RUN touch ~/.bashrc\
-    && echo 'if [ $(id -u) -eq 0 ]; then' >> ~/.bashrc\
-    && echo '   alias sudo=eval' >> ~/.bashrc\
-    && echo 'fi' >> ~/.bashrc\
-    && echo '' >> ~/.bashrc
-
 # ssh credentials
 ARG ssh_prv_key
 ARG ssh_pub_key
@@ -44,6 +37,10 @@ ARG git_mail
 RUN git config --global user.email "${git_mail}"\
     && git config --global user.name "${git_user}"\
     && git config --global pull.rebase false 
+
+# dummy sudo for security reasons
+RUN echo "#!/bin/bash\n\$@" > /usr/bin/sudo\
+    && chmod +x /usr/bin/sudo
 
 # install pivodev
 RUN git clone git@github.com:Andebugan/pivodev.git ~/.pivodev\
