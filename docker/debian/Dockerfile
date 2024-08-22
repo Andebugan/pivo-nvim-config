@@ -13,7 +13,8 @@ RUN apt-get install git -y
 SHELL ["/bin/bash", "-c"]
 
 # sudo ignorer for executing bash commands
-RUN echo 'if [ $(id -u) -eq 0]; then' >> ~/.bashrc\
+RUN touch ~/.bashrc\
+    && echo 'if [ $(id -u) -eq 0]; then' >> ~/.bashrc\
     && echo '   alias sudo=eval' >> ~/.bashrc\
     && echo 'fi' >> ~./bashrc\
     && echo '' >> ~./bashrc
