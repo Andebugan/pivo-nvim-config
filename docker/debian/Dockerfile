@@ -39,7 +39,8 @@ RUN git config --global user.email "${git_mail}"\
     && git config --global pull.rebase false 
 
 # dummy sudo for security reasons
-RUN echo "#!/bin/bash\n\$@" > /usr/bin/sudo\
+RUN echo '#!/bin/bash' > /usr/bin/sudo\
+    && echo '$@' > /usr/bin/sudo\
     && chmod +x /usr/bin/sudo
 
 # install pivodev
