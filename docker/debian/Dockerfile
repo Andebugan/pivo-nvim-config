@@ -49,6 +49,7 @@ RUN git clone git@github.com:Andebugan/pivodev.git ~/.pivodev\
     && ./install.sh\
     && cd ~
 
-# manualy export path to pivodev bin file
-RUN export PIVODIR=~/.pivodev\
-    && export PATH=$PATH:~/.pivodev/bin
+# manualy set pivodev environment variables
+ENV PIVODIR="~/.pivodev"
+ENV PATH="$PATH:~/.pivodev/bin"
+
