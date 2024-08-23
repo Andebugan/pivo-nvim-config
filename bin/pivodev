@@ -162,17 +162,22 @@ elif [[ "$action" == "build" ]]; then
 
     if [[ "$install" == *"bash"* ]]; then
         echo 'RUN ~/.pivodev/scripts/bash.sh' >> $PWD/Dockerfile
-    elif [[ "$install" == *"nvim"* ]]; then
+    fi
+    if [[ "$install" == *"nvim"* ]]; then
         echo 'RUN ~/.pivodev/scripts/nvim.sh' >> $PWD/Dockerfile
-    elif [[ "$install" == *"csharp"* ]]; then
+    fi
+    if [[ "$install" == *"csharp"* ]]; then
         echo 'RUN ~/.pivodev/scripts/csharp.sh' >> $PWD/Dockerfile
-    elif [[ "$install" == *"go"* ]]; then
+    fi
+    if [[ "$install" == *"go"* ]]; then
         echo 'RUN ~/.pivodev/scripts/go.sh' >> $PWD/Dockerfile
-    elif [[ "$install" == *"latex"* ]]; then
+    fi
+    if [[ "$install" == *"latex"* ]]; then
         echo 'RUN ~/.pivodev/scripts/latex.sh' >> $PWD/Dockerfile
-    elif [[ "$install" == *"python"* ]]; then
+    fi
+    if [[ "$install" == *"python"* ]]; then
         echo 'RUN ~/.pivodev/scripts/python.sh' >> $PWD/Dockerfile
-     fi
+    fi
 
     # build
     build_command='docker build -t '$imgname' --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --build-arg git_user="$(git config user.name)" --build-arg git_mail="$(git config user.email)" --squash .'
