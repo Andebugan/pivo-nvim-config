@@ -22,7 +22,11 @@ echo 'alias bat="batcat"' >> ~/.bashrc
 # install blesh
 sudo apt install git make gawk -y
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git ~/.blesh
-(cd ~/.blesh && make install PREFIX=~/.local -y)
+old_dir=$PWD
+cd ~/.blesh
+make install PREFIX=~/.local -y
+cd "$old_dir"
+
 # remove competing completion package
 sudo apt remove bash-completion -y
 echo 'source ~/.local/share/blesh/ble.sh' >> ~/.bashrc
