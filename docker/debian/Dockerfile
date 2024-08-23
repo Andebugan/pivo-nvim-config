@@ -47,6 +47,8 @@ RUN echo '#!/bin/bash' > /usr/bin/sudo\
 RUN git clone git@github.com:Andebugan/pivodev.git ~/.pivodev\
     && cd ~/.pivodev\
     && ./install.sh\
-    && source ~/.bashrc\
     && cd ~
 
+# manualy export path to pivodev bin file
+RUN export PIVODIR=~/.pivodev\
+    && export PATH=$PATH:~/.pivodev/bin
