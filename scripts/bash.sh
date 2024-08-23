@@ -14,7 +14,7 @@ echo 'export SHELL="/bin/bash"' >> ~/.bashrc\
 
 # install fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf\
-    && ~/.fzf/install --all
+    && ~/.fzf/install --all -y
 
 # install bat (batcat)
 sudo apt install bat -y
@@ -23,7 +23,7 @@ echo 'alias bat="batcat"' >> ~/.bashrc
 # install blesh
 sudo apt install git make gawk -y
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git ~/.blesh
-(cd ~/.blesh && make install PREFIX=~/.local)
+(cd ~/.blesh && make install PREFIX=~/.local -y)
 # remove competing completion package
 sudo apt remove bash-completion -y
 echo 'source ~/.local/share/blesh/ble.sh' >> ~/.bashrc

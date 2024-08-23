@@ -161,7 +161,7 @@ elif [[ "$action" == "build" ]]; then
     cp $PIVODIR/docker/debian/Dockerfile $PWD/Dockerfile
 
     if [[ "$install" == *"bash"* ]]; then
-        echo 'RUN pivodev install bash' >> $PWD/Dockerfile
+        echo 'RUN ~/.pivodev/scripts/bash.sh' >> $PWD/Dockerfile
     elif [[ "$install" == *"nvim"* ]]; then
         echo 'RUN pivodev install nvim' >> $PWD/Dockerfile
     elif [[ "$install" == *"csharp"* ]]; then
