@@ -24,9 +24,8 @@ sudo apt install git make gawk -y
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git ~/.blesh
 old_dir=$PWD
 cd ~/.blesh
-make install PREFIX=~/.local -y
+make install PREFIX=~/.local
 cd "$old_dir"
-
 # remove competing completion package
 sudo apt remove bash-completion -y
 echo 'source ~/.local/share/blesh/ble.sh' >> ~/.bashrc
