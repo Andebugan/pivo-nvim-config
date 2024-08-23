@@ -47,4 +47,6 @@ RUN echo '#!/bin/bash' > /usr/bin/sudo\
 RUN git clone git@github.com:Andebugan/pivodev.git ~/.pivodev\
     && cd ~/.pivodev\
     && ./install.sh\
+    && source ~/.bashrc\
     && cd ~
+

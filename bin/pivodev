@@ -95,6 +95,9 @@ if [[ "$action" == "install" ]]; then
 elif [[ "$action" == "build" ]]; then
     shift
 
+    install_option="-I"
+    install="" # install tools via pivodev
+
     build_option="-b"
     build=false # build/only generate dockerfile
 
@@ -130,6 +133,9 @@ elif [[ "$action" == "build" ]]; then
     do
         if [[ "$1" == "$build_option" ]]; then
             build=true
+        elif [[ "$1" == "$install_option" ]]; then
+            shift
+            install="$1;$install"
         elif [[ "$1" == "$image_option" ]]; then 
             shift
             imgname="$1"
@@ -152,7 +158,21 @@ elif [[ "$action" == "build" ]]; then
 
     # create dockerfile
     touch "$PWD/Dockerfile"
-    cp $PIVODIR/docker/debian/Dockerfile "$PWD/Dockerfile" 
+    cp $PIVODIR/docker/debian/Dockerfile $PWD/Dockerfile
+
+    if [[ "$install" == *"bash"* ]]; then
+        echo 'RUN pivodev install bash' >> $PWD/Dockerfile
+    elif [[ "$install" == *"nvim"* ]]; then
+        echo 'RUN pivodev install nvim' >> $PWD/Dockerfile
+    elif [[ "$install" == *"csharp"* ]]; then
+        echo 'RUN pivodev install csharp' >> $PWD/Dockerfile
+    elif [[ "$install" == *"go"* ]]; then
+        echo 'RUN pivodev install go' >> $PWD/Dockerfile
+    elif [[ "$install" == *"latex"* ]]; then
+        echo 'RUN pivodev install latex' >> $PWD/Dockerfile
+    elif [[ "$install" == *"python"* ]]; then
+        echo 'RUN pivodev install python' >> $PWD/Dockerfile
+     fi
 
     # build
     build_command='docker build -t '$imgname' --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --build-arg git_user="$(git config user.name)" --build-arg git_mail="$(git config user.email)" --squash .'
