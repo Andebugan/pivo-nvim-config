@@ -163,15 +163,15 @@ elif [[ "$action" == "build" ]]; then
     if [[ "$install" == *"bash"* ]]; then
         echo 'RUN ~/.pivodev/scripts/bash.sh' >> $PWD/Dockerfile
     elif [[ "$install" == *"nvim"* ]]; then
-        echo 'RUN pivodev install nvim' >> $PWD/Dockerfile
+        echo 'RUN ~/.pivodev/scripts/nvim.sh' >> $PWD/Dockerfile
     elif [[ "$install" == *"csharp"* ]]; then
-        echo 'RUN pivodev install csharp' >> $PWD/Dockerfile
+        echo 'RUN ~/.pivodev/scripts/csharp.sh' >> $PWD/Dockerfile
     elif [[ "$install" == *"go"* ]]; then
-        echo 'RUN pivodev install go' >> $PWD/Dockerfile
+        echo 'RUN ~/.pivodev/scripts/go.sh' >> $PWD/Dockerfile
     elif [[ "$install" == *"latex"* ]]; then
-        echo 'RUN pivodev install latex' >> $PWD/Dockerfile
+        echo 'RUN ~/.pivodev/scripts/latex.sh' >> $PWD/Dockerfile
     elif [[ "$install" == *"python"* ]]; then
-        echo 'RUN pivodev install python' >> $PWD/Dockerfile
+        echo 'RUN ~/.pivodev/scripts/python.sh' >> $PWD/Dockerfile
      fi
 
     # build
