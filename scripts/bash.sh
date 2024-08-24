@@ -39,7 +39,7 @@ sudo apt install vim -y
 echo 'EDITOR=vim' >> ~/.bashrc
 
 # add man pages
-sudo apt install man
+sudo apt install man -y
 echo "" >> ~/.bashrc
 echo "export LESS_TERMCAP_mb=$'\e[01;31m'" >> ~/.bashrc       # begin blinking
 echo "export LESS_TERMCAP_md=$'\e[01;37m'" >> ~/.bashrc       # begin bold
