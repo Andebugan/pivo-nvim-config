@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt-get install git wget openssh-server curl tar ripgrep fd-find -y
+sudo apt-get install git wget openssh-server curl tar ripgrep fd-find npm -y
 
 # add custom bash command line
 echo 'export SHELL="/bin/bash"' >> ~/.bashrc\
@@ -19,6 +19,10 @@ sudo apt install fzf
 sudo apt install bat -y
 echo 'alias bat="batcat"' >> ~/.bashrc
 
+# install tldr
+sudo apt install npm
+npm install -g tldr
+
 # install blesh
 sudo apt install git make gawk -y
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git ~/.blesh
@@ -29,5 +33,18 @@ cd "$old_dir"
 # remove competing completion package
 sudo apt remove bash-completion -y
 echo 'source ~/.local/share/blesh/ble.sh' >> ~/.bashrc
+
+# add colors to man pages
+echo "" >> ~/.bashrc
+echo "export LESS_TERMCAP_mb=$'\e[01;31m'" >> ~/.bashrc       # begin blinking
+echo "export LESS_TERMCAP_md=$'\e[01;37m'" >> ~/.bashrc       # begin bold
+echo "export LESS_TERMCAP_me=$'\e[0m'" >> ~/.bashrc           # end all mode like so, us, mb, md, mr
+echo "export LESS_TERMCAP_se=$'\e[0m'" >> ~/.bashrc           # end standout-mode
+echo "export LESS_TERMCAP_so=$'\e[45;93m'" >> ~/.bashrc       # start standout mode
+echo "export LESS_TERMCAP_ue=$'\e[0m'" >> ~/.bashrc           # end underline
+echo "export LESS_TERMCAP_us=$'\e[4;93m'" >> ~/.bashrc        # start underlining
+
+# install so for stackoverflow/docs viewing
+sudo curl --proto '=https' --tlsv1.2 -sSf https://samtay.github.io/so/install.sh | bash -s -- --to /usr/bin
 
 echo 'Source bash config to apply changes: source ~/.bashrc'
