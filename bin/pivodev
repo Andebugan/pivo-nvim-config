@@ -175,7 +175,7 @@ elif [[ "$1" == "build" ]]; then
         # create dockerfile
         touch "$PWD/Dockerfile"
         echo "FROM pivodev-base:latest" >> $PWD/Dockerfile
-        echo "RUN echo '\\033[1;31m<!> THIS IMAGE IS FOR LOCAL DEVELOPMENT CONTAINERS ONLY, DO NOT PUSH IT TO PUBLIC REGISTRIES <!>\\033[0m'" >> $PWD/Dockerfile
+        echo "RUN echo '<!> THIS IMAGE IS FOR LOCAL DEVELOPMENT CONTAINERS ONLY, DO NOT PUSH IT TO PUBLIC REGISTRIES <!>'" >> $PWD/Dockerfile
 
         if [[ "$install" == *"bash"* ]]; then
             echo 'RUN ~/.pivodev/scripts/bash.sh' >> $PWD/Dockerfile
