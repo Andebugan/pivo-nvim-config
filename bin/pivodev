@@ -137,6 +137,7 @@ elif [[ "$1" == "build" ]]; then
         if [[ "$1" == "-h" ]] || [[ "$1" == "?" ]] || [[ "$1" == "--help" ]]; then
             echo -e "${LIGHT_CYAN}Usage:${RESET} ${YELLOW}pivodev build dev [options]${RESET}"
             echo -e "  ${LIGHT_GRAY}Options:${RESET}"
+            echo -e "      ${WHITE}-I {toolset} ${LIGHT_GRAY}- install predefined toolsets into container${RESET}"    
             echo -e "      ${WHITE}-b ${LIGHT_GRAY}- build image based on generated Dockerfile${RESET}"    
             echo -e "      ${WHITE}-i {image name} ${LIGHT_GRAY}- define custom image name (pivodev-base by default)${RESET}"    
             echo -e "      ${WHITE}-r ${LIGHT_GRAY}- create and run container after image creation${RESET}"    
@@ -199,7 +200,7 @@ elif [[ "$1" == "build" ]]; then
         fi
 
         # build
-        build_command='docker build -t '$imgname
+        build_command='docker build -t '$imgname' --squash .'
 
         if [[ "$build" == false ]]; then
             echo $build_command
