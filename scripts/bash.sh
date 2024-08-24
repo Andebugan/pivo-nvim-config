@@ -34,6 +34,10 @@ cd "$old_dir"
 sudo apt remove bash-completion -y
 echo 'source ~/.local/share/blesh/ble.sh' >> ~/.bashrc
 
+# install vim as default editor
+sudo apt install vim -y
+echo 'EDITOR=vim' >> ~/.bashrc
+
 # add colors to man pages
 echo "" >> ~/.bashrc
 echo "export LESS_TERMCAP_mb=$'\e[01;31m'" >> ~/.bashrc       # begin blinking
