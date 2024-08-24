@@ -24,9 +24,7 @@ if [[ "$1" == "-h" ]] || [[ "$1" == "?" ]] || [[ "$1" == "--help" ]]; then
     exit 0
 fi
 
-action=$1 # what should pivodev do (install/build)
-
-if [[ "$action" == "install" ]]; then
+if [[ "$1" == "install" ]]; then
     shift
 
     if [[ "$1" == "-h" ]] || [[ "$1" == "?" ]] || [[ "$1" == "--help" ]]; then
@@ -92,112 +90,132 @@ if [[ "$action" == "install" ]]; then
     echo "To apply changes:"
     echo "source ~/.bashrc"
 
-elif [[ "$action" == "build" ]]; then
+elif [[ "$1" == "build" ]]; then
     shift
-
-    install_option="-I"
-    install="" # install tools via pivodev
-
-    build_option="-b"
-    build=false # build/only generate dockerfile
-
-    image_option="-i"
-    imgname="pivodev-base" # new image name 
-
-    run_option="-r"
-    run=false # create container after image creation
-
-    run_args_option="-a"
-    run_args="-dit --network=host"
-
-    contname_option="-c"
-    contname="pivodev" # new container name 
-    
-    clean_files_option="-C"
-    clean_files=false  # remove generated files after execution
-
     if [[ "$1" == "-h" ]] || [[ "$1" == "?" ]] || [[ "$1" == "--help" ]]; then
-        echo -e "${LIGHT_CYAN}Usage:${RESET} ${YELLOW}pivodev build [options]${RESET}"
-        echo -e "  ${LIGHT_GRAY}Options:${RESET}"
-        echo -e "      ${WHITE}-b ${LIGHT_GRAY}- build image based on generated Dockerfile${RESET}"    
-        echo -e "      ${WHITE}-i {image name} ${LIGHT_GRAY}- define custom image name (pivodev-base by default)${RESET}"    
-        echo -e "      ${WHITE}-r ${LIGHT_GRAY}- create and run container after image creation${RESET}"    
-        echo -e "      ${WHITE}-c {container name} ${LIGHT_GRAY}- provide container name (pivodev by default)${RESET}"    
-        echo -e "      ${WHITE}-a \"{docker run aruments}\" ${LIGHT_GRAY}- provide docker run arguments (-dit --network=host by default)${RESET}"    
-        echo -e "      ${WHITE}-C ${LIGHT_GRAY}- clean generated files after container creation${RESET}"    
+        echo -e "${LIGHT_CYAN}Usage:${RESET} ${YELLOW}pivodev build base${RESET} - builds base image for pivodev containers"
+        echo -e "   ${WHITE}pivodev build dev${RESET} - ${LIGHT_GRAY}create base pivodev container${RESET}"
+        echo -e "   ${WHITE}pivodev build base${RESET} - ${LIGHT_GRAY}create pivodev container${RESET}"
         exit 0
     fi
- 
-    # parse options
-    while [ $# -gt 0 ]
-    do
-        if [[ "$1" == "$build_option" ]]; then
-            build=true
-        elif [[ "$1" == "$install_option" ]]; then
-            shift
-            install="$1;$install"
-        elif [[ "$1" == "$image_option" ]]; then 
-            shift
-            imgname="$1"
-        elif [[ "$1" == "$run_option" ]]; then
-            run=true
-        elif [[ "$1" == "$run_args_option" ]]; then
-            shift
-            run_args="$1"
-        elif [[ "$1" == "$contname_option" ]]; then
-            shift
-            contname_option="$1"
-        elif [[ "$1" == "$clean_files_option" ]]; then
-            clean_files=true
-        else
-            echo -e "${LIGHT_RED}Unable to parse $1!${RESET}"
+
+    if [[ "$1" == "base" ]]; then
+        if [[ "$1" == "-h" ]] || [[ "$1" == "?" ]] || [[ "$1" == "--help" ]]; then
+            echo -e "${LIGHT_CYAN}Usage:${RESET} ${YELLOW}pivodev build base${RESET} - builds base image for pivodev containers"
             exit 0
         fi
-        shift
-    done
 
-    # create dockerfile
-    touch "$PWD/Dockerfile"
-    cp $PIVODIR/docker/debian/Dockerfile $PWD/Dockerfile
-
-    if [[ "$install" == *"bash"* ]]; then
-        echo 'RUN ~/.pivodev/scripts/bash.sh' >> $PWD/Dockerfile
-    fi
-    if [[ "$install" == *"nvim"* ]]; then
-        echo 'RUN ~/.pivodev/scripts/nvim.sh' >> $PWD/Dockerfile
-    fi
-    if [[ "$install" == *"csharp"* ]]; then
-        echo 'RUN ~/.pivodev/scripts/csharp.sh' >> $PWD/Dockerfile
-    fi
-    if [[ "$install" == *"go"* ]]; then
-        echo 'RUN ~/.pivodev/scripts/go.sh' >> $PWD/Dockerfile
-    fi
-    if [[ "$install" == *"latex"* ]]; then
-        echo 'RUN ~/.pivodev/scripts/latex.sh' >> $PWD/Dockerfile
-    fi
-    if [[ "$install" == *"python"* ]]; then
-        echo 'RUN ~/.pivodev/scripts/python.sh' >> $PWD/Dockerfile
-    fi
-
-    # build
-    build_command='docker build -t '$imgname' --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --build-arg git_user="$(git config user.name)" --build-arg git_mail="$(git config user.email)" --squash .'
-
-    if [[ "$build" == false ]]; then
-        echo $build_command
-    else
-        # build image
+        cp $PIVODIR/docker/debian/Dockerfile $PWD/Dockerfile
+        build_command='docker build -t pivodev-base --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --build-arg git_user="$(git config user.name)" --build-arg git_mail="$(git config user.email)" --squash .'
         eval $build_command
-    fi
+        rm $PWD/Dockerfile
 
-    # run
-    if [[ "$run" == true ]] && [[ "$build" == true ]]; then
-        # run container
-        run_command='docker run '$run_args' --name '$contname' '$imgname
-        eval $run_command
-    fi
+    elif [[ "$1" == "dev" ]]; then
+        install_option="-I"
+        install="" # install tools via pivodev
 
-    # clean files
-    if [[ "$clean_files" == true ]]; then
-        rm "$PWD/Dockerfile"
+        build_option="-b"
+        build=false # build/only generate dockerfile
+
+        image_option="-i"
+        imgname="pivodev-img" # new image name 
+
+        run_option="-r"
+        run=false # create container after image creation
+
+        run_args_option="-a"
+        run_args="-dit --network=host"
+
+        contname_option="-c"
+        contname="pivodev" # new container name 
+        
+        clean_files_option="-C"
+        clean_files=false  # remove generated files after execution
+
+        if [[ "$1" == "-h" ]] || [[ "$1" == "?" ]] || [[ "$1" == "--help" ]]; then
+            echo -e "${LIGHT_CYAN}Usage:${RESET} ${YELLOW}pivodev build dev [options]${RESET}"
+            echo -e "  ${LIGHT_GRAY}Options:${RESET}"
+            echo -e "      ${WHITE}-b ${LIGHT_GRAY}- build image based on generated Dockerfile${RESET}"    
+            echo -e "      ${WHITE}-i {image name} ${LIGHT_GRAY}- define custom image name (pivodev-base by default)${RESET}"    
+            echo -e "      ${WHITE}-r ${LIGHT_GRAY}- create and run container after image creation${RESET}"    
+            echo -e "      ${WHITE}-c {container name} ${LIGHT_GRAY}- provide container name (pivodev by default)${RESET}"    
+            echo -e "      ${WHITE}-a \"{docker run aruments}\" ${LIGHT_GRAY}- provide docker run arguments (-dit --network=host by default)${RESET}"    
+            echo -e "      ${WHITE}-C ${LIGHT_GRAY}- clean generated files after container creation${RESET}"    
+            exit 0
+        fi
+     
+        # parse options
+        while [ $# -gt 0 ]
+        do
+            if [[ "$1" == "$build_option" ]]; then
+                build=true
+            elif [[ "$1" == "$install_option" ]]; then
+                shift
+                install="$1;$install"
+            elif [[ "$1" == "$image_option" ]]; then 
+                shift
+                imgname="$1"
+            elif [[ "$1" == "$run_option" ]]; then
+                run=true
+            elif [[ "$1" == "$run_args_option" ]]; then
+                shift
+                run_args="$1"
+            elif [[ "$1" == "$contname_option" ]]; then
+                shift
+                contname_option="$1"
+            elif [[ "$1" == "$clean_files_option" ]]; then
+                clean_files=true
+            else
+                echo -e "${LIGHT_RED}Unable to parse $1!${RESET}"
+                exit 0
+            fi
+            shift
+        done
+
+        # create dockerfile
+        touch "$PWD/Dockerfile"
+        echo "FROM pivodev-base:latest" >> $PWD/Dockerfile
+        echo "RUN echo '\\033[1;31m<!> THIS IMAGE IS FOR LOCAL DEVELOPMENT CONTAINERS ONLY, DO NOT PUSH IT TO PUBLIC REGISTRIES <!>\\033[0m'" >> $PWD/Dockerfile
+
+        if [[ "$install" == *"bash"* ]]; then
+            echo 'RUN ~/.pivodev/scripts/bash.sh' >> $PWD/Dockerfile
+        fi
+        if [[ "$install" == *"nvim"* ]]; then
+            echo 'RUN ~/.pivodev/scripts/nvim.sh' >> $PWD/Dockerfile
+        fi
+        if [[ "$install" == *"csharp"* ]]; then
+            echo 'RUN ~/.pivodev/scripts/csharp.sh' >> $PWD/Dockerfile
+        fi
+        if [[ "$install" == *"go"* ]]; then
+            echo 'RUN ~/.pivodev/scripts/go.sh' >> $PWD/Dockerfile
+        fi
+        if [[ "$install" == *"latex"* ]]; then
+            echo 'RUN ~/.pivodev/scripts/latex.sh' >> $PWD/Dockerfile
+        fi
+        if [[ "$install" == *"python"* ]]; then
+            echo 'RUN ~/.pivodev/scripts/python.sh' >> $PWD/Dockerfile
+        fi
+
+        # build
+        build_command='docker build -t '$imgname
+
+        if [[ "$build" == false ]]; then
+            echo $build_command
+        else
+            # build image
+            eval $build_command
+        fi
+
+        # run
+        if [[ "$run" == true ]] && [[ "$build" == true ]]; then
+            # run container
+            run_command='docker run '$run_args' --name '$contname' '$imgname
+            eval $run_command
+        fi
+
+        # clean files
+        if [[ "$clean_files" == true ]]; then
+            rm "$PWD/Dockerfile"
+        fi
     fi
 fi
