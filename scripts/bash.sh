@@ -38,7 +38,8 @@ echo 'source ~/.local/share/blesh/ble.sh' >> ~/.bashrc
 sudo apt install vim -y
 echo 'EDITOR=vim' >> ~/.bashrc
 
-# add colors to man pages
+# add man pages
+sudo apt install man
 echo "" >> ~/.bashrc
 echo "export LESS_TERMCAP_mb=$'\e[01;31m'" >> ~/.bashrc       # begin blinking
 echo "export LESS_TERMCAP_md=$'\e[01;37m'" >> ~/.bashrc       # begin bold
