@@ -3,7 +3,7 @@
 # install dependencies
 sudo apt-get update && apt-get upgrade -y
 
-sudo apt-get install git curl tar gcc npm -y
+sudo apt-get install git curl tar gcc npm unzip -y
 
 # install neovim
 sudo curl -L -O "https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz"\
