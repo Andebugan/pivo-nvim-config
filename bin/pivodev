@@ -100,6 +100,7 @@ elif [[ "$1" == "build" ]]; then
     fi
 
     if [[ "$1" == "base" ]]; then
+        shift
         if [[ "$1" == "-h" ]] || [[ "$1" == "?" ]] || [[ "$1" == "--help" ]]; then
             echo -e "${LIGHT_CYAN}Usage:${RESET} ${YELLOW}pivodev build base${RESET} - builds base image for pivodev containers"
             exit 0
@@ -111,6 +112,7 @@ elif [[ "$1" == "build" ]]; then
         rm $PWD/Dockerfile
 
     elif [[ "$1" == "dev" ]]; then
+        shift
         install_option="-I"
         install="" # install tools via pivodev
 
@@ -166,7 +168,7 @@ elif [[ "$1" == "build" ]]; then
             elif [[ "$1" == "$clean_files_option" ]]; then
                 clean_files=true
             else
-                echo -e "${LIGHT_RED}Unable to parse $1!${RESET}"
+                echo -e "${LIGHT_RED}Unable to parse${RESET} $1${LIGHT_RED}!"
                 exit 0
             fi
             shift
