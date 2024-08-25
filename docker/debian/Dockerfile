@@ -49,7 +49,9 @@ RUN git clone git@github.com:Andebugan/pivodev.git ~/.pivodev\
     && ./install.sh\
     && cd ~
 
-# manualy set pivodev environment variables
+# manually set pivodev environment variables
 ENV PIVODIR="~/.pivodev"
 ENV PATH="$PATH:~/.pivodev/bin"
 
+# manually set user variable
+ENV USER="root"
