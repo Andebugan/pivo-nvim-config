@@ -10,23 +10,24 @@
 ╰─╯       ╰─╯ ╰──────────┘ ╰──────────╯ ╰──────────╯
 ```
 
-While working with different language ecosystems I often come into installation, compatability and cleaning problems so I decided to create set of docker based configurations for automatic building of development environments IDE and special tools included. Basically [devcontainers](https://code.visualstudio.com/docs/devcontainers/containers) but IDE is inside them.
+While working with different development ecosystems I often come into installation, compatability and cleaning problems. So I decided to make set of docker based configurations for automatic building of development environments with IDE and special tools included. Basically [devcontainers](https://code.visualstudio.com/docs/devcontainers/containers) but you can develop inside them instead for connecting via ssh or other remote protocols
 
 To achieve this all needed tools are installed inside container with [pivodev-nvim](https://github.com/Andebugan/pivodev-nvim/tree/master) or [pivodev-vim](https://github.com/Andebugan/pivodev-vim)
 
 Functionality:
 - Configurable Dockerfile builder and runner
-- Flexible "swiss knife" Neovim configuration
+- Flexible "get only what you need" Neovim configuration
 
 Languanges/platforms in mind:
 - [x] Python
 - [x] LaTeX
 - [x] C#
+- [x] Markdown
+- [ ] Jupyter
 - [ ] C/C++
 - [ ] Go
 - [ ] Web development (http/css/js)
 - [ ] Lua
-- [ ] Markdown
 - [ ] SQL
 - [ ] Rust
 
