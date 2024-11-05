@@ -36,8 +36,7 @@ Languanges/platforms in mind:
 To install pivodev:
 ```
 git clone https://github.com/Andebugan/pivodev ~/.pivodev
-(cd ~/.pivodev && ./install.sh)
-source ~/.bashrc
+(cd ~/.pivodev && ./install.sh && source ~/.bashrc)
 ```
 
 ## Container builder
