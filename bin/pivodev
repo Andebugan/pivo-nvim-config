@@ -32,6 +32,7 @@ if [[ "$1" == "install" ]]; then
         echo -e "  ${LIGHT_GRAY}Avaliable toolsets (each toolset is defined in corresponding bash file at PIVODIR/scripts/):${RESET}"
         echo -e "      ${WHITE}bash${RESET} ${LIGHT_GRAY}- sudo alias + fzf + bat + blesh${RESET}"
         echo -e "      ${WHITE}nvim${RESET} ${LIGHT_GRAY}- nvim + pivodev-nvim${RESET}"
+        echo -e "      ${WHITE}vim${RESET} ${LIGHT_GRAY}- vim + pivodev-vim${RESET}"
         echo -e "      ${WHITE}csharp${RESET} ${LIGHT_GRAY}- dotnet sdk/runtime${RESET}"
         echo -e "      ${WHITE}go${RESET} ${LIGHT_GRAY}- standard go${RESET}"
         echo -e "      ${WHITE}latex${RESET} ${LIGHT_GRAY}- texlive + ttf cyrillic lang + dependencies${RESET}"
@@ -44,6 +45,7 @@ if [[ "$1" == "install" ]]; then
     go=false
     latex=false
     nvim=false
+    vim=false
     python=false
     
     for var in "$@"
@@ -62,6 +64,9 @@ if [[ "$1" == "install" ]]; then
         fi
         if [[ "$var" == *"nvim"* ]]; then
             nvim=true
+        fi
+        if [[ "$var" == *"vim"* ]]; then
+            vim=true
         fi
         if [[ "$var" == *"python"* ]]; then
             python=true
@@ -83,6 +88,9 @@ if [[ "$1" == "install" ]]; then
     if $nvim; then
         (cd $PIVODIR/scripts && ./nvim.sh)
     fi
+    if $vim; then
+        (cd $PIVODIR/scripts && ./vim.sh)
+    fi
     if $python; then
         (cd $PIVODIR/scripts && ./python.sh)
     fi
@@ -94,8 +102,8 @@ elif [[ "$1" == "build" ]]; then
     shift
     if [[ "$1" == "-h" ]] || [[ "$1" == "?" ]] || [[ "$1" == "--help" ]]; then
         echo -e "${LIGHT_CYAN}Usage:${RESET} ${YELLOW}pivodev build base${RESET} - builds base image for pivodev containers"
-        echo -e "   ${WHITE}pivodev build dev${RESET} - ${LIGHT_GRAY}create base pivodev container${RESET}"
-        echo -e "   ${WHITE}pivodev build base${RESET} - ${LIGHT_GRAY}create pivodev container${RESET}"
+        echo -e "   ${WHITE}pivodev build base${RESET} - ${LIGHT_GRAY}create base pivodev container${RESET}"
+        echo -e "   ${WHITE}pivodev build dev${RESET} - ${LIGHT_GRAY}create pivodev container${RESET}"
         exit 0
     fi
 
@@ -107,7 +115,7 @@ elif [[ "$1" == "build" ]]; then
         fi
 
         cp $PIVODIR/docker/debian/Dockerfile $PWD/Dockerfile
-        build_command='docker build -t pivodev-base --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --build-arg git_user="$(git config user.name)" --build-arg git_mail="$(git config user.email)" --squash .'
+        build_command='sudo docker build -t pivodev-base --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --build-arg git_user="$(git config user.name)" --build-arg git_mail="$(git config user.email)" --squash .'
         eval $build_command
         rm $PWD/Dockerfile
 
@@ -200,7 +208,7 @@ elif [[ "$1" == "build" ]]; then
         fi
 
         # build
-        build_command='docker build -t '$imgname' --squash .'
+        build_command='sudo docker build -t '$imgname' --squash .'
 
         if [[ "$build" == false ]]; then
             echo $build_command
@@ -212,7 +220,7 @@ elif [[ "$1" == "build" ]]; then
         # run
         if [[ "$run" == true ]] && [[ "$build" == true ]]; then
             # run container
-            run_command='docker run '$run_args' --name '$contname' '$imgname
+            run_command='sudo docker run '$run_args' --name '$contname' '$imgname
             eval $run_command
         fi
 
