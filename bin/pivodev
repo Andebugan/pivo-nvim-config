@@ -194,6 +194,9 @@ elif [[ "$1" == "build" ]]; then
         if [[ "$install" == *"nvim"* ]]; then
             echo 'RUN ~/.pivodev/scripts/nvim.sh' >> $PWD/Dockerfile
         fi
+        if [[ "$install" == *"vim"* ]]; then
+            echo 'RUN ~/.pivodev/scripts/vim.sh' >> $PWD/Dockerfile
+        fi
         if [[ "$install" == *"csharp"* ]]; then
             echo 'RUN ~/.pivodev/scripts/csharp.sh' >> $PWD/Dockerfile
         fi
