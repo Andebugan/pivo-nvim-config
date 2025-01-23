@@ -6,11 +6,8 @@ RUN echo '<!> THIS IMAGE IS FOR LOCAL DEVELOPMENT CONTAINERS ONLY, DO NOT PUSH I
 RUN apt-get update\
     && apt-get upgrade -y
 
-# install git
-RUN apt-get install git -y
-
-# set bash shell
-SHELL ["/bin/bash", "-c"]
+# install packages
+RUN apt-get install git wget openssh-server curl tar ripgrep fd-find npm -y
 
 # ssh credentials
 ARG ssh_prv_key
@@ -43,15 +40,7 @@ RUN echo '#!/bin/bash' > /usr/bin/sudo\
     && echo '$@' > /usr/bin/sudo\
     && chmod +x /usr/bin/sudo
 
-# install pivodev
-RUN git clone git@github.com:Andebugan/pivodev.git ~/.pivodev\
-    && cd ~/.pivodev\
-    && ./install.sh\
-    && cd ~
-
-# manually set pivodev environment variables
-ENV PIVODIR="~/.pivodev"
-ENV PATH="$PATH:~/.pivodev/bin"
-
 # manually set user variable
 ENV USER="root"
+
+SHELL ["/bin/bash", "-c"]

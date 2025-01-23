@@ -1,15 +1,21 @@
 #!/bin/bash
 
-# install dependencies
-sudo apt-get update && apt-get upgrade -y
+function describe.vim() {
+    echo -e "${YELLOW}vim${RESET} ${LIGHT_GRAY}- vim + pivodev-vim${RESET}"
+}
 
-sudo apt-get install git -y
+function install.vim() {
+    # install dependencies
+    sudo apt-get update && apt-get upgrade -y
 
-# install vim
-sudo apt install vim -y\
-    && sudo apt-get autoremove -y
+    sudo apt-get install git -y
 
-# setup vim configuration
-cd ~\
-    && git clone git@github.com:Andebugan/pivodev-vim.git ~/.pivodev-vim\
-    && ln -s ~/.pivodev-vim/.vimrc ~/.vimrc
+    # install vim
+    sudo apt install vim -y\
+        && sudo apt-get autoremove -y
+
+    # setup vim configuration
+    cd ~\
+        && git clone git@github.com:Andebugan/pivodev-vim.git ~/.pivodev-vim\
+        && ln -s ~/.pivodev-vim/.vimrc ~/.vimrc
+}
