@@ -7,7 +7,7 @@ RUN apt-get update\
     && apt-get upgrade -y
 
 # install packages
-RUN apt-get install git wget openssh-server curl tar ripgrep fd-find npm -y
+RUN apt-get install git wget openssh-server curl tar ripgrep fd-find npm apt-utils -y
 
 # ssh credentials
 ARG ssh_prv_key

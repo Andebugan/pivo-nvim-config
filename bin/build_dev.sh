@@ -54,7 +54,7 @@ function process_build_dev()
         elif [[ "$1" == "$install_option" ]]; then
             shift
             validate_toolset "$1"
-            install="$1;$install"
+            install="$1 $install"
         elif [[ "$1" == "$image_option" ]]; then 
             shift
             imgname="$1"
@@ -92,9 +92,9 @@ ENV PIVODIR="~/.pivodev"
 ENV PATH="$PATH:~/.pivodev/bin"
 " >> $PWD/Dockerfile
 
-    if [[ "$install" == *"bash"* ]]; then
-        echo 'RUN pivodev install bash' >> $PWD/Dockerfile
-    fi
+    for toolset in $install; do
+        echo "RUN pivodev install $toolset" >> $PWD/Dockerfile
+    done
 
     # build
     build_command='sudo docker build -t '$imgname' --squash .'
