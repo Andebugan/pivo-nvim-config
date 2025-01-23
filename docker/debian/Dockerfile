@@ -22,7 +22,7 @@ RUN mkdir -p /root/.ssh\
     && chmod 600 /root/.ssh/id_rsa.pub
 
 # install locales
-RUN apt-get install -y locales locales-all
+RUN apt-get install -y locales locales-all -y
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
