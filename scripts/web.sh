@@ -5,6 +5,9 @@ function describe.web() {
 }
 
 function install.web() {
-    return
+    sudo apt install npm -y
+
+    sudo npm install -g gulp
+    sudo npm install -g typescript
 }
 

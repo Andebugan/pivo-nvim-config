@@ -5,5 +5,5 @@ function describe.angular {
 }
 
 function install.angular {
-    return
+    sudo npm install -g @angular/cli
 }
