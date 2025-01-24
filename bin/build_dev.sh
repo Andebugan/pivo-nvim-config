@@ -80,7 +80,7 @@ function process_build_dev()
     echo "FROM pivodev-base:latest" >> $PWD/Dockerfile
     echo "RUN echo '<!> THIS IMAGE IS FOR LOCAL DEVELOPMENT CONTAINERS ONLY, DO NOT PUSH IT TO PUBLIC REGISTRIES <!>'" >> $PWD/Dockerfile
 
-    echo -e "\
+    echo -e '\
 # install pivodev
 RUN git clone git@github.com:Andebugan/pivodev.git ~/.pivodev\
     && cd ~/.pivodev\
@@ -90,7 +90,7 @@ RUN git clone git@github.com:Andebugan/pivodev.git ~/.pivodev\
 # manually set pivodev environment variables
 ENV PIVODIR="~/.pivodev"
 ENV PATH="$PATH:~/.pivodev/bin"
-" >> $PWD/Dockerfile
+' >> $PWD/Dockerfile
 
     for toolset in $install; do
         echo "RUN pivodev install $toolset" >> $PWD/Dockerfile
