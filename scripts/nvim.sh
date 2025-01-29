@@ -11,9 +11,9 @@ function install.nvim() {
     sudo apt-get install git curl tar gcc npm unzip -y
 
     # install neovim
-    sudo curl -L -O "https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-x86_64.tar.gz"\
-        && sudo tar -C /opt -xzf nvim-linux64.tar.gz\
-        && echo 'export PATH="$PATH:/opt/nvim-linux64/bin"' >> ~/.bashrc\
+    sudo curl -L -o nvim.tar.gz "https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-x86_64.tar.gz"\
+        && sudo tar -C /opt -xzf nvim.tar.gz\
+        && echo 'export PATH="$PATH:/opt/nvim/bin"' >> ~/.bashrc\
         && sudo rm nvim-linux64.tar.gz\
         && sudo apt-get autoremove -y
 
