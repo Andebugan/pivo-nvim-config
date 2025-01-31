@@ -23,5 +23,5 @@ function install.nvim() {
         && cd ~\
         && git clone git@github.com:Andebugan/pivodev-nvim.git ~/.pivodev-nvim\
         && cp ~/.pivodev-nvim/nvim/lua/plugins/config/config.lua ~/.pivodev-nvim/nvim/lua/plugins/config/local_config.lua\
-        && ln -s ~/.pivodev-nvim/nvim/ ~/.config/nvim 
+        && ln -s ~/.pivodev-nvim/nvim ~/.config/nvim 
 }
