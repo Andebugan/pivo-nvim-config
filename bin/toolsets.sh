@@ -38,7 +38,7 @@ function install_toolset() {
     for toolset in $toolsets; do
         name=$(get_toolset_name "$toolset")
         if [[ "$name" = "$1" ]] then
-            $("install.$name")
+            ("install.$name")
             return 0
         fi
     done
