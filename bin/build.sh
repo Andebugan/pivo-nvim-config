@@ -96,7 +96,7 @@ ENV PATH="$PATH:~/.pivodev/bin"
     done
 
     # build
-    build_command="$build_command -t '$imgname' "
+    build_command="$build_command -t $imgname ."
 
     if [[ "$build" == false ]]; then
         echo $build_command
