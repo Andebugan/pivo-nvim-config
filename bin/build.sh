@@ -1,30 +1,119 @@
 #!/bin/bash
 
-source $(dirname $0)/build_base.sh
-source $(dirname $0)/build_dev.sh
+install_option="-I"
+build_option="-b"
+image_option="-i"
+run_option="-r"
+run_args_option="-a"
+contname_option="-c"
+clean_files_option="-C"
 
-function process_build_help() {
+function process_build_help()
+{
     check_if_help "$@"
     if [[ "$?" -eq 0 ]] then
         return
     fi
 
     echo -e "\
-${LIGHT_CYAN}Usage:${RESET} ${YELLOW}pivodev build base${RESET} - builds base image for pivodev containers
-    ${WHITE}pivodev build base${RESET} - ${LIGHT_GRAY}create base pivodev container${RESET}
-    ${WHITE}pivodev build dev${RESET} - ${LIGHT_GRAY}create pivodev container${RESET}"
+${LIGHT_CYAN}Usage:${RESET} ${YELLOW}pivodev build [options]${RESET}
+    ${LIGHT_GRAY}Options:${RESET}
+        ${WHITE}$build_option ${LIGHT_GRAY}- build image based on generated Dockerfile${RESET}    
+        ${WHITE}$image_option {image name} ${LIGHT_GRAY}- define custom image name (pivodev-base by default)${RESET}
+        ${WHITE}$run_option ${LIGHT_GRAY}- create and run container after image creation${RESET}
+        ${WHITE}$contname_option {container name} ${LIGHT_GRAY}- provide container name (pivodev by default)${RESET}
+        ${WHITE}$run_args_option \"{docker run aruments}\" ${LIGHT_GRAY}- provide docker run arguments (-dit --network=host by default)${RESET}
+        ${WHITE}$clean_files_option ${LIGHT_GRAY}- clean generated files after container creation${RESET}
+        ${WHITE}$install_option {toolset} ${LIGHT_GRAY}- install predefined toolsets into container${RESET}:"
+    for toolset in $toolsets; do
+        echo -e "          $(describe_toolset "$(get_toolset_name "$toolset")")"
+    done
 
     exit 0
 }
 
-function process_build() {
-    shift 
+function process_build()
+{
+    shift
 
     process_build_help "$@"
 
-    if [[ "$1" == "base" ]]; then
-        process_build_base "$@"
-    elif [[ "$1" == "dev" ]]; then
-        process_build_dev "$@"
+    install="" # install tools via pivodev
+    build=false # build/only generate dockerfile
+    imgname="pivodev-img" # new image name 
+    run=false # create container after image creation
+    run_args="-dit --network=host"
+    contname="pivodev" # new container name 
+    clean_files=false  # remove generated files after execution
+
+    # parse options
+    while [ $# -gt 0 ]
+    do
+        if [[ "$1" == "$build_option" ]]; then
+            build=true
+        elif [[ "$1" == "$install_option" ]]; then
+            shift
+            validate_toolset "$1"
+            install="$1 $install"
+        elif [[ "$1" == "$image_option" ]]; then 
+            shift
+            imgname="$1"
+        elif [[ "$1" == "$run_option" ]]; then
+            run=true
+        elif [[ "$1" == "$run_args_option" ]]; then
+            shift
+            run_args="$1"
+        elif [[ "$1" == "$contname_option" ]]; then
+            shift
+            contname_option="$1"
+        elif [[ "$1" == "$clean_files_option" ]]; then
+            clean_files=true
+        else
+            echo -e "${LIGHT_RED}Unable to parse${RESET} $1${LIGHT_RED}!"
+            exit 0
+        fi
+        shift
+    done
+
+    # create dockerfile
+    cp $PIVODIR/docker/debian/Dockerfile $PWD/Dockerfile
+    build_command='sudo docker build --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --build-arg git_user="$(git config user.name)" --build-arg git_mail="$(git config user.email)" '
+
+    echo -e '
+# install pivodev
+RUN git clone git@github.com:Andebugan/pivodev.git ~/.pivodev\
+    && cd ~/.pivodev\
+    && ./install.sh\
+    && cd ~
+
+# manually set pivodev environment variables
+ENV PIVODIR="~/.pivodev"
+ENV PATH="$PATH:~/.pivodev/bin"
+' >> $PWD/Dockerfile
+
+    for toolset in $install; do
+        echo "RUN pivodev install $toolset" >> $PWD/Dockerfile
+    done
+
+    # build
+    build_command="$build_command -t '$imgname' "
+
+    if [[ "$build" == false ]]; then
+        echo $build_command
+    else
+        # build image
+        eval $build_command
+    fi
+
+    # run
+    if [[ "$run" == true ]] && [[ "$build" == true ]]; then
+        # run container
+        run_command='sudo docker run '$run_args' --name '$contname' '$imgname
+        eval $run_command
+    fi
+
+    # clean files
+    if [[ "$clean_files" == true ]]; then
+        rm "$PWD/Dockerfile"
     fi
 }

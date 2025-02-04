@@ -44,3 +44,4 @@ RUN echo '#!/bin/bash' > /usr/bin/sudo\
 ENV USER="root"
 
 SHELL ["/bin/bash", "-c"]
+
